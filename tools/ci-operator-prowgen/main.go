@@ -4,14 +4,16 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/ghodss/yaml"
-	cioperatorapi "github.com/openshift/ci-operator/pkg/api"
 	"io/ioutil"
-	prowconfig "k8s.io/test-infra/prow/config"
-	prowkube "k8s.io/test-infra/prow/kube"
 	"os"
 	"path"
 	"strings"
+
+	"github.com/ghodss/yaml"
+
+	cioperatorapi "github.com/openshift/ci-operator/pkg/api"
+	kubeapi "k8s.io/api/core/v1"
+	prowconfig "k8s.io/test-infra/prow/config"
 )
 
 type options struct {
@@ -31,18 +33,17 @@ func bindOptions(flag *flag.FlagSet) *options {
 	return opt
 }
 
-func generatePodSpec() *prowkube.PodSpec {
-	podspec := prowkube.PodSpec{ServiceAccountName: "ci-operator"}
+func generatePodSpec(org, component, branch string) *kubeapi.PodSpec {
+	podspec := kubeapi.PodSpec{ServiceAccountName: "ci-operator"}
 	command := []string{"ci-operator"}
 	args := []string{"--artifact-dir=$(ARTIFACTS)"}
 
-	// TODO: prowkube has no EnvVarSource alias
-	// configMapKeyRef := prowkube.EnvVarSource{ConfigMapKeyRef: &prowkube.ConfigMapKeySelector{LocalObjectReference: prowkube.LocalObjectReference{Name: fmt.Sprintf("ci-operator-%s-%s", org, component)}, Key: fmt.Sprintf("%s.json", branch)}}
-	configSpec := prowkube.EnvVar{Name: "CONFIG_SPEC"}
-	env := []prowkube.EnvVar{configSpec}
+	configMapKeyRef := kubeapi.EnvVarSource{ConfigMapKeyRef: &kubeapi.ConfigMapKeySelector{LocalObjectReference: kubeapi.LocalObjectReference{Name: fmt.Sprintf("ci-operator-%s-%s", org, component)}, Key: fmt.Sprintf("%s.json", branch)}}
+	configSpec := kubeapi.EnvVar{Name: "CONFIG_SPEC"}
+	env := []kubeapi.EnvVar{configSpec}
 
-	container := prowkube.Container{Name: "test", Image: "ci-operator:latest", Command: command, Args: args, Env: env}
-	podspec.Containers = []prowkube.Container{container}
+	container := kubeapi.Container{Name: "test", Image: "ci-operator:latest", Command: command, Args: args, Env: env}
+	podspec.Containers = []kubeapi.Container{container}
 
 	return &podspec
 }
@@ -57,7 +58,7 @@ func generatePresubmitForTest(test, org, component, branch string) prowconfig.Pr
 	presubmit.Brancher.Branches = []string{branch}
 	presubmit.UtilityConfig = prowconfig.UtilityConfig{Decorate: true}
 	// TODO: `skip_cloning` does not seem to be covered by `Presubmit`
-	presubmit.Spec = generatePodSpec()
+	presubmit.Spec = generatePodSpec(org, component, branch)
 
 	return presubmit
 }
