@@ -35,10 +35,6 @@ func bindOptions(flag *flag.FlagSet) *options {
 }
 
 func generatePodSpec(org, repo, branch string) *kubeapi.PodSpec {
-	podspec := kubeapi.PodSpec{ServiceAccountName: "ci-operator"}
-	command := []string{"ci-operator"}
-	args := []string{"--artifact-dir=$(ARTIFACTS)"}
-
 	configMapKeyRef := kubeapi.EnvVarSource{
 		ConfigMapKeyRef: &kubeapi.ConfigMapKeySelector{
 			LocalObjectReference: kubeapi.LocalObjectReference{
@@ -48,23 +44,23 @@ func generatePodSpec(org, repo, branch string) *kubeapi.PodSpec {
 		},
 	}
 
-	env := []kubeapi.EnvVar{
-		kubeapi.EnvVar{
-			Name:      "CONFIG_SPEC",
-			ValueFrom: &configMapKeyRef,
+	return &kubeapi.PodSpec{
+		ServiceAccountName: "ci-operator",
+		Containers: []kubeapi.Container{
+			kubeapi.Container{
+				Name:    "test",
+				Image:   "ci-operator:latest",
+				Command: []string{"ci-operator"},
+				Args:    []string{"--artifact-dir=$(ARTIFACTS)"},
+				Env: []kubeapi.EnvVar{
+					kubeapi.EnvVar{
+						Name:      "CONFIG_SPEC",
+						ValueFrom: &configMapKeyRef,
+					},
+				},
+			},
 		},
 	}
-
-	container := kubeapi.Container{
-		Name:    "test",
-		Image:   "ci-operator:latest",
-		Command: command,
-		Args:    args,
-		Env:     env,
-	}
-	podspec.Containers = []kubeapi.Container{container}
-
-	return &podspec
 }
 
 func generatePresubmitForTest(test, org, repo, branch string) *prowconfig.Presubmit {
@@ -100,6 +96,7 @@ func generatePostsubmitForTest(test, org, repo, branch string) *prowconfig.Posts
 			Decorate:         true,
 		},
 	}
+
 	postsubmit.Spec.Containers[0].Args = append(
 		postsubmit.Spec.Containers[0].Args,
 		fmt.Sprintf("--target=%s", test),
