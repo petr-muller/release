@@ -41,12 +41,19 @@ func generatePodSpec(org, repo, branch string) *kubeapi.PodSpec {
 
 	configMapKeyRef := kubeapi.EnvVarSource{
 		ConfigMapKeyRef: &kubeapi.ConfigMapKeySelector{
-			LocalObjectReference: kubeapi.LocalObjectReference{Name: fmt.Sprintf("ci-operator-%s-%s", org, repo)},
-			Key:                  fmt.Sprintf("%s.json", branch),
+			LocalObjectReference: kubeapi.LocalObjectReference{
+				Name: fmt.Sprintf("ci-operator-%s-%s", org, repo),
+			},
+			Key: fmt.Sprintf("%s.json", branch),
 		},
 	}
-	configSpec := kubeapi.EnvVar{Name: "CONFIG_SPEC", ValueFrom: &configMapKeyRef}
-	env := []kubeapi.EnvVar{configSpec}
+
+	env := []kubeapi.EnvVar{
+		kubeapi.EnvVar{
+			Name:      "CONFIG_SPEC",
+			ValueFrom: &configMapKeyRef,
+		},
+	}
 
 	container := kubeapi.Container{
 		Name:    "test",
@@ -60,13 +67,13 @@ func generatePodSpec(org, repo, branch string) *kubeapi.PodSpec {
 	return &podspec
 }
 
-func generatePresubmitForTest(test, org, repo, branch string) prowconfig.Presubmit {
+func generatePresubmitForTest(test, org, repo, branch string) *prowconfig.Presubmit {
 	presubmit := prowconfig.Presubmit{
 		Agent:        "kubernetes",
 		AlwaysRun:    true,
 		Brancher:     prowconfig.Brancher{Branches: []string{branch}},
 		Context:      fmt.Sprintf("ci/prow/%s", test),
-		Name:         fmt.Sprintf("ci-operator-%s-%s-%s", org, repo, test),
+		Name:         fmt.Sprintf("pull-ci-%s-%s-%s", org, repo, test),
 		RerunCommand: fmt.Sprintf("/test %s", test),
 		Spec:         generatePodSpec(org, repo, branch),
 		Trigger:      fmt.Sprintf("((?m)^/test( all| %s),?(\\\\s+|$))", test),
@@ -75,28 +82,50 @@ func generatePresubmitForTest(test, org, repo, branch string) prowconfig.Presubm
 			Decorate:         true,
 		},
 	}
+	presubmit.Spec.Containers[0].Args = append(
+		presubmit.Spec.Containers[0].Args,
+		fmt.Sprintf("--target=%s", test),
+	)
 
-	return presubmit
+	return &presubmit
+}
+
+func generatePostsubmitForTest(test, org, repo, branch string) *prowconfig.Postsubmit {
+	postsubmit := prowconfig.Postsubmit{
+		Agent: "kubernetes",
+		Name:  fmt.Sprintf("branch-ci-%s-%s-%s", org, repo, test),
+		Spec:  generatePodSpec(org, repo, branch),
+		UtilityConfig: prowconfig.UtilityConfig{
+			DecorationConfig: &prowkube.DecorationConfig{SkipCloning: true},
+			Decorate:         true,
+		},
+	}
+	postsubmit.Spec.Containers[0].Args = append(
+		postsubmit.Spec.Containers[0].Args,
+		fmt.Sprintf("--target=%s", test),
+	)
+	postsubmit.Spec.Containers[0].Args = append(postsubmit.Spec.Containers[0].Args, "--promote")
+
+	return &postsubmit
 }
 
 func generatePresubmits(tests []cioperatorapi.TestStepConfiguration, org, repo, branch string) map[string][]prowconfig.Presubmit {
 	orgrepo := fmt.Sprintf("%s/%s", org, repo)
 	presubmits := map[string][]prowconfig.Presubmit{}
 	for _, element := range tests {
-		presubmits[orgrepo] = append(presubmits[orgrepo], generatePresubmitForTest(element.As, org, repo, branch))
+		presubmits[orgrepo] = append(presubmits[orgrepo], *generatePresubmitForTest(element.As, org, repo, branch))
 	}
 	return presubmits
 }
 
-func generateJobConfig(configSpec *cioperatorapi.ReleaseBuildConfiguration, org, repo, branch string) *prowconfig.JobConfig {
-	jobConfig := prowconfig.JobConfig{}
-	jobConfig.Presubmits = generatePresubmits(configSpec.Tests, org, repo, branch)
-	// TODO: postsubmits
-	// jobConfig.Postsubmits = make(map[string][]prowconfig.Postsubmit)
-	// jobConfig.Postsubmits[repo] = make([]prowconfig.Postsubmit, 0)
-	// ...etc...
+func generatePostsubmits(tests []cioperatorapi.TestStepConfiguration, org, repo, branch string) map[string][]prowconfig.Postsubmit {
+	orgrepo := fmt.Sprintf("%s/%s", org, repo)
+	postsubmits := map[string][]prowconfig.Postsubmit{}
+	for _, element := range tests {
+		postsubmits[orgrepo] = append(postsubmits[orgrepo], *generatePostsubmitForTest(element.As, org, repo, branch))
+	}
 
-	return &jobConfig
+	return postsubmits
 }
 
 func main() {
@@ -130,7 +159,10 @@ func main() {
 	org := path.Base(path.Dir(configSpecDir))
 	branch := strings.TrimSuffix(path.Base(opt.ciOperatorConfigPath), path.Ext(opt.ciOperatorConfigPath))
 
-	jobConfig := generateJobConfig(configSpec, org, repo, branch)
+	jobConfig := prowconfig.JobConfig{
+		Presubmits:  generatePresubmits(configSpec.Tests, org, repo, branch),
+		Postsubmits: generatePostsubmits(configSpec.Tests, org, repo, branch),
+	}
 
 	jobConfigAsYaml, err := yaml.Marshal(jobConfig)
 	if err != nil {
