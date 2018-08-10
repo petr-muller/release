@@ -6,7 +6,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"path"
+	"os/exec"
+	"path/filepath"
 	"regexp"
 	"strings"
 
@@ -20,6 +21,7 @@ import (
 
 type options struct {
 	ciOperatorConfigPath string
+	fullRepoMode         bool
 
 	help    bool
 	verbose bool
@@ -29,6 +31,7 @@ func bindOptions(flag *flag.FlagSet) *options {
 	opt := &options{}
 
 	flag.StringVar(&opt.ciOperatorConfigPath, "source-config", "", "Path to ci-operator configuration file in openshift/release repository.")
+	flag.BoolVar(&opt.fullRepoMode, "full-repo", false, "If set to true, the generator will walk over all ci-operator config files in openshift/release repository and regenerate all component prow job config files")
 	flag.BoolVar(&opt.help, "h", false, "Show help for ci-operator-prowgen")
 	flag.BoolVar(&opt.verbose, "v", false, "Show verbose output")
 
@@ -149,22 +152,8 @@ func yamlBytesStripNulls(yamlBytes []byte) []byte {
 	return nullRE.ReplaceAll(yamlBytes, []byte{})
 }
 
-func main() {
-	flagSet := flag.NewFlagSet("", flag.ExitOnError)
-	opt := bindOptions(flagSet)
-	flagSet.Parse(os.Args[1:])
-
-	if opt.help {
-		flagSet.Usage()
-		os.Exit(0)
-	}
-
-	if len(opt.ciOperatorConfigPath) == 0 {
-		fmt.Fprintf(os.Stderr, "ci-operator-prowgen needs --source-config option to read ci-operator configuration\n")
-		os.Exit(1)
-	}
-
-	data, err := ioutil.ReadFile(opt.ciOperatorConfigPath)
+func generateProwJobsFromConfigFile(configFilePath string) []byte {
+	data, err := ioutil.ReadFile(configFilePath)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "failed to read ci-operator config (%v)\n", err)
 		os.Exit(1)
@@ -175,10 +164,10 @@ func main() {
 		fmt.Printf("failed to load ci-operator config (%v)\n", err)
 	}
 
-	configSpecDir := path.Dir(opt.ciOperatorConfigPath)
-	repo := path.Base(configSpecDir)
-	org := path.Base(path.Dir(configSpecDir))
-	branch := strings.TrimSuffix(path.Base(opt.ciOperatorConfigPath), path.Ext(opt.ciOperatorConfigPath))
+	configSpecDir := filepath.Dir(configFilePath)
+	repo := filepath.Base(configSpecDir)
+	org := filepath.Base(filepath.Dir(configSpecDir))
+	branch := strings.TrimSuffix(filepath.Base(configFilePath), filepath.Ext(configFilePath))
 
 	presubmits, postsubmits := generateJobs(configSpec, org, repo, branch)
 
@@ -195,5 +184,53 @@ func main() {
 
 	jobConfigAsYaml = yamlBytesStripNulls(jobConfigAsYaml)
 
-	fmt.Printf(string(jobConfigAsYaml))
+	return jobConfigAsYaml
+}
+
+func generateAllProwJobs() {
+	repoRootRaw, err := exec.Command("git", "rev-parse", "--show-toplevel").Output()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "failed to determine repository root with 'git rev-parse --show-toplevel")
+		os.Exit(1)
+	}
+	repoRoot := strings.TrimSpace(string(repoRootRaw))
+	configDir := filepath.Join(repoRoot, "ci-operator", "config")
+	jobDir := filepath.Join(repoRoot, "ci-operator", "jobs")
+
+	err = filepath.Walk(configDir, func(path string, info os.FileInfo, err error) error {
+		if !info.IsDir() && filepath.Ext(path) == ".json" {
+			jobConfigAsYaml := generateProwJobsFromConfigFile(path)
+			suffixPath := filepath.Dir(strings.TrimPrefix(path, configDir))
+			jobDirForComponent := filepath.Join(jobDir, suffixPath)
+			os.MkdirAll(jobDirForComponent, os.ModePerm)
+			branch := strings.TrimSuffix(filepath.Base(path), filepath.Ext(path))
+			target := filepath.Join(jobDirForComponent, fmt.Sprintf("%s.yaml", branch))
+			err := ioutil.WriteFile(target, jobConfigAsYaml, 0664)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Failed to write job config to '%s'", target)
+			}
+		}
+		return nil
+	})
+}
+
+func main() {
+	flagSet := flag.NewFlagSet("", flag.ExitOnError)
+	opt := bindOptions(flagSet)
+	flagSet.Parse(os.Args[1:])
+
+	if opt.help {
+		flagSet.Usage()
+		os.Exit(0)
+	}
+
+	if len(opt.ciOperatorConfigPath) > 0 {
+		jobConfigAsYaml := generateProwJobsFromConfigFile(opt.ciOperatorConfigPath)
+		fmt.Printf(string(jobConfigAsYaml))
+	} else if opt.fullRepoMode {
+		generateAllProwJobs()
+	} else {
+		fmt.Fprintf(os.Stderr, "ci-operator-prowgen needs --source-config or --full-repo\n")
+		os.Exit(1)
+	}
 }
