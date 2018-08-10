@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"regexp"
 	"strings"
 
 	"github.com/ghodss/yaml"
@@ -76,8 +77,8 @@ func generatePresubmitForTest(test testDescription, org, repo, branch string) *p
 		Context:      fmt.Sprintf("ci/prow/%s", test.Name),
 		Name:         fmt.Sprintf("pull-ci-%s-%s-%s", org, repo, test.Name),
 		RerunCommand: fmt.Sprintf("/test %s", test.Name),
-		Spec:         generatePodSpec(org, repo, branch),
-		Trigger:      fmt.Sprintf("((?m)^/test( all| %s),?(\\\\s+|$))", test.Name),
+		// Spec:         generatePodSpec(org, repo, branch),
+		Trigger: fmt.Sprintf("((?m)^/test( all| %s),?(\\\\s+|$))", test.Name),
 		UtilityConfig: prowconfig.UtilityConfig{
 			DecorationConfig: &prowkube.DecorationConfig{SkipCloning: true},
 			Decorate:         true,
@@ -95,7 +96,7 @@ func generatePostsubmitForTest(test testDescription, org, repo, branch string) *
 	postsubmit := prowconfig.Postsubmit{
 		Agent: "kubernetes",
 		Name:  fmt.Sprintf("branch-ci-%s-%s-%s", org, repo, test.Name),
-		Spec:  generatePodSpec(org, repo, branch),
+		// Spec:  generatePodSpec(org, repo, branch),
 		UtilityConfig: prowconfig.UtilityConfig{
 			DecorationConfig: &prowkube.DecorationConfig{SkipCloning: true},
 			Decorate:         true,
@@ -142,6 +143,12 @@ func generateJobs(
 	return &presubmits, &postsubmits
 }
 
+// these are unnecessary, and make the config larger so we strip them out
+func yamlBytesStripNulls(yamlBytes []byte) []byte {
+	nullRE := regexp.MustCompile("(?m)[\n]+^[^\n]+: null$")
+	return nullRE.ReplaceAll(yamlBytes, []byte{})
+}
+
 func main() {
 	flagSet := flag.NewFlagSet("", flag.ExitOnError)
 	opt := bindOptions(flagSet)
@@ -185,6 +192,8 @@ func main() {
 		fmt.Printf("failed to marshal the job config (%v)", err)
 		os.Exit(1)
 	}
+
+	jobConfigAsYaml = yamlBytesStripNulls(jobConfigAsYaml)
 
 	fmt.Printf(string(jobConfigAsYaml))
 }
