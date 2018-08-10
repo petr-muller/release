@@ -14,7 +14,6 @@ import (
 	"github.com/ghodss/yaml"
 
 	cioperatorapi "github.com/openshift/ci-operator/pkg/api"
-	kubeapi "k8s.io/api/core/v1"
 	prowconfig "k8s.io/test-infra/prow/config"
 	prowkube "k8s.io/test-infra/prow/kube"
 )
@@ -47,25 +46,25 @@ func bindOptions(flag *flag.FlagSet) *options {
 	return opt
 }
 
-func generatePodSpec(org, repo, branch, target string, additionalArgs []string) *kubeapi.PodSpec {
-	configMapKeyRef := kubeapi.EnvVarSource{
-		ConfigMapKeyRef: &kubeapi.ConfigMapKeySelector{
-			LocalObjectReference: kubeapi.LocalObjectReference{
+func generatePodSpec(org, repo, branch, target string, additionalArgs []string) *prowkube.PodSpec {
+	configMapKeyRef := prowkube.EnvVarSource{
+		ConfigMapKeyRef: &prowkube.ConfigMapKeySelector{
+			LocalObjectReference: prowkube.LocalObjectReference{
 				Name: fmt.Sprintf("ci-operator-%s-%s", org, repo),
 			},
 			Key: fmt.Sprintf("%s.json", branch),
 		},
 	}
 
-	return &kubeapi.PodSpec{
+	return &prowkube.PodSpec{
 		ServiceAccountName: "ci-operator",
-		Containers: []kubeapi.Container{
-			kubeapi.Container{
+		Containers: []prowkube.Container{
+			prowkube.Container{
 				Image:   "ci-operator:latest",
 				Command: []string{"ci-operator"},
 				Args:    append([]string{"--artifact-dir=$(ARTIFACTS)", fmt.Sprintf("--target=%s", target)}, additionalArgs...),
-				Env: []kubeapi.EnvVar{
-					kubeapi.EnvVar{
+				Env: []prowkube.EnvVar{
+					prowkube.EnvVar{
 						Name:      "CONFIG_SPEC",
 						ValueFrom: &configMapKeyRef,
 					},
@@ -88,8 +87,8 @@ func generatePresubmitForTest(test testDescription, org, repo, branch string) *p
 		Context:      fmt.Sprintf("ci/prow/%s", test.Name),
 		Name:         fmt.Sprintf("pull-ci-%s-%s-%s", org, repo, test.Name),
 		RerunCommand: fmt.Sprintf("/test %s", test.Name),
-		// Spec:         generatePodSpec(org, repo, branch, test.Target, []string{}),
-		Trigger: fmt.Sprintf("((?m)^/test( all| %s),?(\\\\s+|$))", test.Name),
+		Spec:         generatePodSpec(org, repo, branch, test.Target, []string{}),
+		Trigger:      fmt.Sprintf("((?m)^/test( all| %s),?(\\\\s+|$))", test.Name),
 		UtilityConfig: prowconfig.UtilityConfig{
 			DecorationConfig: &prowkube.DecorationConfig{SkipCloning: true},
 			Decorate:         true,
@@ -102,7 +101,7 @@ func generatePostsubmitForTest(test testDescription, org, repo, branch string, a
 	postsubmit := prowconfig.Postsubmit{
 		Agent: "kubernetes",
 		Name:  fmt.Sprintf("branch-ci-%s-%s-%s", org, repo, test.Name),
-		// Spec:  generatePodSpec(org, repo, branch, test.Target, additionalArgs),
+		Spec:  generatePodSpec(org, repo, branch, test.Target, additionalArgs),
 		UtilityConfig: prowconfig.UtilityConfig{
 			DecorationConfig: &prowkube.DecorationConfig{SkipCloning: true},
 			Decorate:         true,
