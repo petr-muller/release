@@ -1,0 +1,103 @@
+postsubmits:
+  openshift/origin-web-console-server:
+  - agent: kubernetes
+    decorate: true
+    name: branch-ci-openshift-origin-web-console-server-unit
+    skip_cloning: true
+    spec:
+      containers:
+      - args:
+        - --artifact-dir=$(ARTIFACTS)
+        - --target=unit
+        command:
+        - ci-operator
+        env:
+        - name: CONFIG_SPEC
+          valueFrom:
+            configMapKeyRef:
+              key: master.json
+              name: ci-operator-openshift-origin-web-console-server
+        image: ci-operator:latest
+        name: ""
+        resources: {}
+      serviceAccountName: ci-operator
+  - agent: kubernetes
+    decorate: true
+    labels:
+      artifacts: images
+    name: branch-ci-openshift-origin-web-console-server-images
+    skip_cloning: true
+    spec:
+      containers:
+      - args:
+        - --artifact-dir=$(ARTIFACTS)
+        - --target=[images]
+        - --promote
+        command:
+        - ci-operator
+        env:
+        - name: CONFIG_SPEC
+          valueFrom:
+            configMapKeyRef:
+              key: master.json
+              name: ci-operator-openshift-origin-web-console-server
+        image: ci-operator:latest
+        name: ""
+        resources: {}
+      serviceAccountName: ci-operator
+presubmits:
+  openshift/origin-web-console-server:
+  - agent: kubernetes
+    always_run: true
+    branches:
+    - master
+    context: ci/prow/unit
+    decorate: true
+    name: pull-ci-openshift-origin-web-console-server-unit
+    rerun_command: /test unit
+    skip_cloning: true
+    spec:
+      containers:
+      - args:
+        - --artifact-dir=$(ARTIFACTS)
+        - --target=unit
+        command:
+        - ci-operator
+        env:
+        - name: CONFIG_SPEC
+          valueFrom:
+            configMapKeyRef:
+              key: master.json
+              name: ci-operator-openshift-origin-web-console-server
+        image: ci-operator:latest
+        name: ""
+        resources: {}
+      serviceAccountName: ci-operator
+    trigger: ((?m)^/test( all| unit),?(\\s+|$))
+  - agent: kubernetes
+    always_run: true
+    branches:
+    - master
+    context: ci/prow/images
+    decorate: true
+    name: pull-ci-openshift-origin-web-console-server-images
+    rerun_command: /test images
+    skip_cloning: true
+    spec:
+      containers:
+      - args:
+        - --artifact-dir=$(ARTIFACTS)
+        - --target=[images]
+        command:
+        - ci-operator
+        env:
+        - name: CONFIG_SPEC
+          valueFrom:
+            configMapKeyRef:
+              key: master.json
+              name: ci-operator-openshift-origin-web-console-server
+        image: ci-operator:latest
+        name: ""
+        resources: {}
+      serviceAccountName: ci-operator
+    trigger: ((?m)^/test( all| images),?(\\s+|$))

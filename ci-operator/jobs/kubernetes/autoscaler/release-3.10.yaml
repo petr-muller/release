@@ -1,0 +1,103 @@
+postsubmits:
+  kubernetes/autoscaler:
+  - agent: kubernetes
+    decorate: true
+    name: branch-ci-kubernetes-autoscaler-unit
+    skip_cloning: true
+    spec:
+      containers:
+      - args:
+        - --artifact-dir=$(ARTIFACTS)
+        - --target=unit
+        command:
+        - ci-operator
+        env:
+        - name: CONFIG_SPEC
+          valueFrom:
+            configMapKeyRef:
+              key: release-3.10.json
+              name: ci-operator-kubernetes-autoscaler
+        image: ci-operator:latest
+        name: ""
+        resources: {}
+      serviceAccountName: ci-operator
+  - agent: kubernetes
+    decorate: true
+    labels:
+      artifacts: images
+    name: branch-ci-kubernetes-autoscaler-images
+    skip_cloning: true
+    spec:
+      containers:
+      - args:
+        - --artifact-dir=$(ARTIFACTS)
+        - --target=[images]
+        - --promote
+        command:
+        - ci-operator
+        env:
+        - name: CONFIG_SPEC
+          valueFrom:
+            configMapKeyRef:
+              key: release-3.10.json
+              name: ci-operator-kubernetes-autoscaler
+        image: ci-operator:latest
+        name: ""
+        resources: {}
+      serviceAccountName: ci-operator
+presubmits:
+  kubernetes/autoscaler:
+  - agent: kubernetes
+    always_run: true
+    branches:
+    - release-3.10
+    context: ci/prow/unit
+    decorate: true
+    name: pull-ci-kubernetes-autoscaler-unit
+    rerun_command: /test unit
+    skip_cloning: true
+    spec:
+      containers:
+      - args:
+        - --artifact-dir=$(ARTIFACTS)
+        - --target=unit
+        command:
+        - ci-operator
+        env:
+        - name: CONFIG_SPEC
+          valueFrom:
+            configMapKeyRef:
+              key: release-3.10.json
+              name: ci-operator-kubernetes-autoscaler
+        image: ci-operator:latest
+        name: ""
+        resources: {}
+      serviceAccountName: ci-operator
+    trigger: ((?m)^/test( all| unit),?(\\s+|$))
+  - agent: kubernetes
+    always_run: true
+    branches:
+    - release-3.10
+    context: ci/prow/images
+    decorate: true
+    name: pull-ci-kubernetes-autoscaler-images
+    rerun_command: /test images
+    skip_cloning: true
+    spec:
+      containers:
+      - args:
+        - --artifact-dir=$(ARTIFACTS)
+        - --target=[images]
+        command:
+        - ci-operator
+        env:
+        - name: CONFIG_SPEC
+          valueFrom:
+            configMapKeyRef:
+              key: release-3.10.json
+              name: ci-operator-kubernetes-autoscaler
+        image: ci-operator:latest
+        name: ""
+        resources: {}
+      serviceAccountName: ci-operator
+    trigger: ((?m)^/test( all| images),?(\\s+|$))
