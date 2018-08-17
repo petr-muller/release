@@ -1,27 +1,68 @@
 postsubmits:
   openshift/telemeter:
-  - name: branch-ci-openshift-telemeter-images
-    agent: kubernetes
+  - agent: kubernetes
+    decorate: true
     labels:
       artifacts: images
-    branches:
-    - master
-    decorate: true
+    name: branch-ci-openshift-telemeter-images
     skip_cloning: true
     spec:
-      serviceAccountName: ci-operator
       containers:
-      - name: test
-        image: ci-operator:latest
+      - args:
+        - --artifact-dir=$(ARTIFACTS)
+        - --target=[images]
+        - --promote
+        command:
+        - ci-operator
         env:
         - name: CONFIG_SPEC
           valueFrom:
             configMapKeyRef:
-              name: ci-operator-openshift-telemeter
               key: master.json
+              name: ci-operator-openshift-telemeter
+        image: ci-operator:latest
+        name: ""
+        resources: {}
+      serviceAccountName: ci-operator
+  - agent: kubernetes
+    decorate: true
+    name: branch-ci-openshift-telemeter-unit
+    skip_cloning: true
+    spec:
+      containers:
+      - args:
+        - --artifact-dir=$(ARTIFACTS)
+        - --target=unit
         command:
         - ci-operator
-        args:
+        env:
+        - name: CONFIG_SPEC
+          valueFrom:
+            configMapKeyRef:
+              key: master.json
+              name: ci-operator-openshift-telemeter
+        image: ci-operator:latest
+        name: ""
+        resources: {}
+      serviceAccountName: ci-operator
+  - agent: kubernetes
+    decorate: true
+    name: branch-ci-openshift-telemeter-integration
+    skip_cloning: true
+    spec:
+      containers:
+      - args:
         - --artifact-dir=$(ARTIFACTS)
-        - --target=[images]
-        - --promote
+        - --target=integration
+        command:
+        - ci-operator
+        env:
+        - name: CONFIG_SPEC
+          valueFrom:
+            configMapKeyRef:
+              key: master.json
+              name: ci-operator-openshift-telemeter
+        image: ci-operator:latest
+        name: ""
+        resources: {}
+      serviceAccountName: ci-operator

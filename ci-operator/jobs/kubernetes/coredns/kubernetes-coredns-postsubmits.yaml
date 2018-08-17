@@ -1,13 +1,8 @@
-presubmits:
-  openshift/service-serving-cert-signer:
+postsubmits:
+  kubernetes/coredns:
   - agent: kubernetes
-    always_run: true
-    branches:
-    - master
-    context: ci/prow/unit
     decorate: true
-    name: pull-ci-openshift-service-serving-cert-signer-unit
-    rerun_command: /test unit
+    name: branch-ci-kubernetes-coredns-unit
     skip_cloning: true
     spec:
       containers:
@@ -20,37 +15,33 @@ presubmits:
         - name: CONFIG_SPEC
           valueFrom:
             configMapKeyRef:
-              key: master.json
-              name: ci-operator-openshift-service-serving-cert-signer
+              key: release-3.10.json
+              name: ci-operator-kubernetes-coredns
         image: ci-operator:latest
         name: ""
         resources: {}
       serviceAccountName: ci-operator
-    trigger: ((?m)^/test( all| unit),?(\\s+|$))
   - agent: kubernetes
-    always_run: true
-    branches:
-    - master
-    context: ci/prow/images
     decorate: true
-    name: pull-ci-openshift-service-serving-cert-signer-images
-    rerun_command: /test images
+    labels:
+      artifacts: images
+    name: branch-ci-kubernetes-coredns-images
     skip_cloning: true
     spec:
       containers:
       - args:
         - --artifact-dir=$(ARTIFACTS)
         - --target=[images]
+        - --promote
         command:
         - ci-operator
         env:
         - name: CONFIG_SPEC
           valueFrom:
             configMapKeyRef:
-              key: master.json
-              name: ci-operator-openshift-service-serving-cert-signer
+              key: release-3.10.json
+              name: ci-operator-kubernetes-coredns
         image: ci-operator:latest
         name: ""
         resources: {}
       serviceAccountName: ci-operator
-    trigger: ((?m)^/test( all| images),?(\\s+|$))

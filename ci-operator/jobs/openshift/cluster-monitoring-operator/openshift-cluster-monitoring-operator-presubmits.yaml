@@ -1,12 +1,12 @@
 presubmits:
-  openshift/origin-metrics:
+  openshift/cluster-monitoring-operator:
   - agent: kubernetes
     always_run: true
     branches:
     - master
     context: ci/prow/images
     decorate: true
-    name: pull-ci-openshift-origin-metrics-images
+    name: pull-ci-openshift-cluster-monitoring-operator-images
     rerun_command: /test images
     skip_cloning: true
     spec:
@@ -21,7 +21,7 @@ presubmits:
           valueFrom:
             configMapKeyRef:
               key: master.json
-              name: ci-operator-openshift-origin-metrics
+              name: ci-operator-openshift-cluster-monitoring-operator
         image: ci-operator:latest
         name: ""
         resources: {}

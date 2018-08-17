@@ -1,27 +1,73 @@
 postsubmits:
   openshift/installer:
-  - name: branch-ci-origin-installer-images
-    agent: kubernetes
-    labels:
-      artifacts: images
+  - agent: kubernetes
     branches:
     - master
     decorate: true
+    labels:
+      artifacts: images
+    name: branch-ci-origin-installer-images
     skip_cloning: true
     spec:
-      serviceAccountName: ci-operator
       containers:
-      - name: test
-        image: ci-operator:latest
+      - args:
+        - --artifact-dir=$(ARTIFACTS)
+        - --target=[images]
+        - --promote
+        command:
+        - ci-operator
         env:
         - name: CONFIG_SPEC
           valueFrom:
             configMapKeyRef:
-              name: ci-operator-openshift-installer
               key: master.json
+              name: ci-operator-openshift-installer
+        image: ci-operator:latest
+        name: test
+        resources: {}
+      serviceAccountName: ci-operator
+  - agent: kubernetes
+    decorate: true
+    name: branch-ci-openshift-installer-unit
+    skip_cloning: true
+    spec:
+      containers:
+      - args:
+        - --artifact-dir=$(ARTIFACTS)
+        - --target=unit
         command:
         - ci-operator
-        args:
+        env:
+        - name: CONFIG_SPEC
+          valueFrom:
+            configMapKeyRef:
+              key: master.json
+              name: ci-operator-openshift-installer
+        image: ci-operator:latest
+        name: ""
+        resources: {}
+      serviceAccountName: ci-operator
+  - agent: kubernetes
+    decorate: true
+    labels:
+      artifacts: images
+    name: branch-ci-openshift-installer-images
+    skip_cloning: true
+    spec:
+      containers:
+      - args:
         - --artifact-dir=$(ARTIFACTS)
         - --target=[images]
         - --promote
+        command:
+        - ci-operator
+        env:
+        - name: CONFIG_SPEC
+          valueFrom:
+            configMapKeyRef:
+              key: master.json
+              name: ci-operator-openshift-installer
+        image: ci-operator:latest
+        name: ""
+        resources: {}
+      serviceAccountName: ci-operator

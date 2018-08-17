@@ -1,12 +1,12 @@
 presubmits:
-  openshift/telemeter:
+  openshift/machine-api-operator:
   - agent: kubernetes
     always_run: true
     branches:
     - master
     context: ci/prow/unit
     decorate: true
-    name: pull-ci-openshift-telemeter-unit
+    name: pull-ci-openshift-machine-api-operator-unit
     rerun_command: /test unit
     skip_cloning: true
     spec:
@@ -21,7 +21,7 @@ presubmits:
           valueFrom:
             configMapKeyRef:
               key: master.json
-              name: ci-operator-openshift-telemeter
+              name: ci-operator-openshift-machine-api-operator
         image: ci-operator:latest
         name: ""
         resources: {}
@@ -31,36 +31,9 @@ presubmits:
     always_run: true
     branches:
     - master
-    context: ci/prow/integration
-    decorate: true
-    name: pull-ci-openshift-telemeter-integration
-    rerun_command: /test integration
-    skip_cloning: true
-    spec:
-      containers:
-      - args:
-        - --artifact-dir=$(ARTIFACTS)
-        - --target=integration
-        command:
-        - ci-operator
-        env:
-        - name: CONFIG_SPEC
-          valueFrom:
-            configMapKeyRef:
-              key: master.json
-              name: ci-operator-openshift-telemeter
-        image: ci-operator:latest
-        name: ""
-        resources: {}
-      serviceAccountName: ci-operator
-    trigger: ((?m)^/test( all| integration),?(\\s+|$))
-  - agent: kubernetes
-    always_run: true
-    branches:
-    - master
     context: ci/prow/images
     decorate: true
-    name: pull-ci-openshift-telemeter-images
+    name: pull-ci-openshift-machine-api-operator-images
     rerun_command: /test images
     skip_cloning: true
     spec:
@@ -75,7 +48,7 @@ presubmits:
           valueFrom:
             configMapKeyRef:
               key: master.json
-              name: ci-operator-openshift-telemeter
+              name: ci-operator-openshift-machine-api-operator
         image: ci-operator:latest
         name: ""
         resources: {}

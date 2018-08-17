@@ -1,13 +1,8 @@
-presubmits:
-  openshift/service-serving-cert-signer:
+postsubmits:
+  openshift/machine-api-operator:
   - agent: kubernetes
-    always_run: true
-    branches:
-    - master
-    context: ci/prow/unit
     decorate: true
-    name: pull-ci-openshift-service-serving-cert-signer-unit
-    rerun_command: /test unit
+    name: branch-ci-openshift-machine-api-operator-unit
     skip_cloning: true
     spec:
       containers:
@@ -21,26 +16,23 @@ presubmits:
           valueFrom:
             configMapKeyRef:
               key: master.json
-              name: ci-operator-openshift-service-serving-cert-signer
+              name: ci-operator-openshift-machine-api-operator
         image: ci-operator:latest
         name: ""
         resources: {}
       serviceAccountName: ci-operator
-    trigger: ((?m)^/test( all| unit),?(\\s+|$))
   - agent: kubernetes
-    always_run: true
-    branches:
-    - master
-    context: ci/prow/images
     decorate: true
-    name: pull-ci-openshift-service-serving-cert-signer-images
-    rerun_command: /test images
+    labels:
+      artifacts: images
+    name: branch-ci-openshift-machine-api-operator-images
     skip_cloning: true
     spec:
       containers:
       - args:
         - --artifact-dir=$(ARTIFACTS)
         - --target=[images]
+        - --promote
         command:
         - ci-operator
         env:
@@ -48,9 +40,8 @@ presubmits:
           valueFrom:
             configMapKeyRef:
               key: master.json
-              name: ci-operator-openshift-service-serving-cert-signer
+              name: ci-operator-openshift-machine-api-operator
         image: ci-operator:latest
         name: ""
         resources: {}
       serviceAccountName: ci-operator
-    trigger: ((?m)^/test( all| images),?(\\s+|$))
