@@ -1,27 +1,28 @@
 postsubmits:
   openshift/console:
-  - name: branch-ci-openshift-console-images
-    agent: kubernetes
-    labels:
-      artifacts: images
+  - agent: kubernetes
     branches:
     - master
     decorate: true
+    labels:
+      artifacts: images
+    name: branch-ci-openshift-console-images
     skip_cloning: true
     spec:
-      serviceAccountName: ci-operator
       containers:
-      - name: test
-        image: ci-operator:latest
+      - args:
+        - --artifact-dir=$(ARTIFACTS)
+        - --target=[images]
+        - --promote
+        command:
+        - ci-operator
         env:
         - name: CONFIG_SPEC
           valueFrom:
             configMapKeyRef:
-              name: ci-operator-openshift-console
               key: master.json
-        command:
-        - ci-operator
-        args:
-        - --artifact-dir=$(ARTIFACTS)
-        - --target=[images]
-        - --promote
+              name: ci-operator-openshift-console
+        image: ci-operator:latest
+        name: test
+        resources: {}
+      serviceAccountName: ci-operator

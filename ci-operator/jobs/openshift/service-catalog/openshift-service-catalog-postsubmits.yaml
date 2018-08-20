@@ -1,28 +1,29 @@
 postsubmits:
   openshift/service-catalog:
-  - name: branch-ci-openshift-service-catalog-images
-    agent: kubernetes
-    labels:
-      artifacts: images
+  - agent: kubernetes
     branches:
     - master
     - release-3.10
     decorate: true
+    labels:
+      artifacts: images
+    name: branch-ci-openshift-service-catalog-images
     skip_cloning: true
     spec:
-      serviceAccountName: ci-operator
       containers:
-      - name: test
-        image: ci-operator:latest
+      - args:
+        - --artifact-dir=$(ARTIFACTS)
+        - --target=[images]
+        - --promote
+        command:
+        - ci-operator
         env:
         - name: CONFIG_SPEC
           valueFrom:
             configMapKeyRef:
-              name: ci-operator-openshift-service-catalog
               key: master.json
-        command:
-        - ci-operator
-        args:
-        - --artifact-dir=$(ARTIFACTS)
-        - --target=[images]
-        - --promote
+              name: ci-operator-openshift-service-catalog
+        image: ci-operator:latest
+        name: test
+        resources: {}
+      serviceAccountName: ci-operator

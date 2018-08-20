@@ -1,68 +1,53 @@
 presubmits:
   openshift/installer:
-  - name: pull-ci-origin-installer-unit
-    agent: kubernetes
-    context: ci/prow/unit
+  - agent: kubernetes
+    always_run: true
     branches:
     - master
-    rerun_command: "/test unit"
-    always_run: true
-    trigger: "((?m)^/test( all| unit),?(\\s+|$))"
+    context: ci/prow/unit
     decorate: true
+    name: pull-ci-origin-installer-unit
+    rerun_command: /test unit
     skip_cloning: true
     spec:
-      serviceAccountName: ci-operator
       containers:
-      - name: test
-        image: ci-operator:latest
+      - args:
+        - --artifact-dir=$(ARTIFACTS)
+        - --target=unit
+        command:
+        - ci-operator
         env:
         - name: CONFIG_SPEC
           valueFrom:
             configMapKeyRef:
-              name: ci-operator-openshift-installer
               key: master.json
-        command:
-        - ci-operator
-        args:
-        - --artifact-dir=$(ARTIFACTS)
-        - --target=unit
-
-  - name: pull-ci-origin-installer-e2e-aws
-    agent: kubernetes
-    context: ci/prow/e2e-aws
+              name: ci-operator-openshift-installer
+        image: ci-operator:latest
+        name: test
+        resources: {}
+      serviceAccountName: ci-operator
+    trigger: ((?m)^/test( all| unit),?(\s+|$))
+  - agent: kubernetes
+    always_run: true
     branches:
     - master
     - dockerless-build-temporary
-    rerun_command: "/test e2e-aws"
-    always_run: true
-    trigger: "((?m)^/test( all| e2e-aws),?(\\s+|$))"
+    context: ci/prow/e2e-aws
     decorate: true
+    name: pull-ci-origin-installer-e2e-aws
+    rerun_command: /test e2e-aws
     skip_cloning: true
     spec:
-      serviceAccountName: ci-operator
-      volumes:
-      - name: job-definition
-        configMap:
-          name: prow-job-cluster-launch-installer-e2e
-      - name: cluster-profile
-        projected:
-          sources:
-          - secret:
-              name: cluster-secrets-aws
-          - configMap:
-              name: cluster-profile-aws
       containers:
-      - name: test
-        image: ci-operator:latest
-        volumeMounts:
-        - name: job-definition
-          mountPath: /usr/local/e2e-aws
-          subPath: cluster-launch-installer-e2e.yaml
-        - name: cluster-profile
-          mountPath: /usr/local/e2e-aws-cluster-profile
+      - command:
+        - ci-operator
+        - --artifact-dir=$(ARTIFACTS)
+        - --secret-dir=/usr/local/e2e-aws-cluster-profile
+        - --template=/usr/local/e2e-aws
+        - --target=e2e-aws
         env:
         - name: TEST_FOCUS
-          value: "The HAProxy router should set Forwarded headers appropriately"
+          value: The HAProxy router should set Forwarded headers appropriately
         - name: JOB_NAME_SAFE
           value: e2e-aws
         - name: CLUSTER_TYPE
@@ -70,86 +55,103 @@ presubmits:
         - name: CONFIG_SPEC
           valueFrom:
             configMapKeyRef:
-              name: ci-operator-openshift-installer
               key: master.json
-        command:
-        - ci-operator
-        - --artifact-dir=$(ARTIFACTS)
-        - --secret-dir=/usr/local/e2e-aws-cluster-profile
-        - --template=/usr/local/e2e-aws
-        - --target=e2e-aws
-
-  - name: ci-pull-openshift-installer-yaml-lint
-    trigger: "(?m)^/test yaml-lint"
-    rerun_command: "/test yaml-lint"
+              name: ci-operator-openshift-installer
+        image: ci-operator:latest
+        name: test
+        resources: {}
+        volumeMounts:
+        - mountPath: /usr/local/e2e-aws
+          name: job-definition
+          subPath: cluster-launch-installer-e2e.yaml
+        - mountPath: /usr/local/e2e-aws-cluster-profile
+          name: cluster-profile
+      serviceAccountName: ci-operator
+      volumes:
+      - configMap:
+          name: prow-job-cluster-launch-installer-e2e
+        name: job-definition
+      - name: cluster-profile
+        projected:
+          sources:
+          - secret:
+              name: cluster-secrets-aws
+          - configMap:
+              name: cluster-profile-aws
+    trigger: ((?m)^/test( all| e2e-aws),?(\s+|$))
+  - agent: kubernetes
+    always_run: true
     context: ci/prow/yaml-lint
-    always_run: true
-    skip_report: false
-    agent: kubernetes
     decorate: true
+    name: ci-pull-openshift-installer-yaml-lint
+    rerun_command: /test yaml-lint
     spec:
       containers:
-      - image: quay.io/coreos/yamllint
-        env:
-        - name: IS_CONTAINER
-          value: 'TRUE'
+      - args:
+        - ./hack/yaml-lint.sh
         command:
-          - sh
-        args:
-          - ./hack/yaml-lint.sh
-
-  - name: ci-pull-openshift-installer-tf-lint
-    trigger: "(?m)^/test tf-lint"
-    rerun_command: "/test tf-lint"
-    context: ci/prow/tf-lint
-    always_run: true
-    skip_report: false
-    agent: kubernetes
-    decorate: true
-    spec:
-      containers:
-      - image: quay.io/coreos/tflint
-        env:
-        - name: IS_CONTAINER
-          value: 'TRUE'
-        command:
-          - sh
-        args:
-          - ./hack/tf-lint.sh
-
-  - name: ci-pull-openshift-installer-shellcheck
-    trigger: "(?m)^/test shellcheck"
-    rerun_command: "/test shellcheck"
-    context: ci/prow/shellcheck
-    always_run: true
-    skip_report: false
-    agent: kubernetes
-    decorate: true
-    spec:
-      containers:
-      - image: quay.io/coreos/shellcheck-alpine:v0.5.0
+        - sh
         env:
         - name: IS_CONTAINER
           value: "TRUE"
-        command:
-        - sh
-        args:
-        - ./hack/shellcheck.sh
-
-  - name: pull-ci-origin-installer-tf-fmt
-    trigger: "((?m)^/test( all| tf-fmt),?(\\s+|$))"
-    rerun_command: "/test tf-fmt"
-    context: ci/prow/tf-fmt
+        image: quay.io/coreos/yamllint
+        name: ""
+        resources: {}
+    trigger: (?m)^/test yaml-lint
+  - agent: kubernetes
     always_run: true
-    agent: kubernetes
+    context: ci/prow/tf-lint
     decorate: true
+    name: ci-pull-openshift-installer-tf-lint
+    rerun_command: /test tf-lint
     spec:
       containers:
-      - image: quay.io/coreos/terraform-alpine:v0.11.7
-        env:
-        - name: IS_CONTAINER
-          value: 'TRUE'
+      - args:
+        - ./hack/tf-lint.sh
         command:
         - sh
-        args:
+        env:
+        - name: IS_CONTAINER
+          value: "TRUE"
+        image: quay.io/coreos/tflint
+        name: ""
+        resources: {}
+    trigger: (?m)^/test tf-lint
+  - agent: kubernetes
+    always_run: true
+    context: ci/prow/shellcheck
+    decorate: true
+    name: ci-pull-openshift-installer-shellcheck
+    rerun_command: /test shellcheck
+    spec:
+      containers:
+      - args:
+        - ./hack/shellcheck.sh
+        command:
+        - sh
+        env:
+        - name: IS_CONTAINER
+          value: "TRUE"
+        image: quay.io/coreos/shellcheck-alpine:v0.5.0
+        name: ""
+        resources: {}
+    trigger: (?m)^/test shellcheck
+  - agent: kubernetes
+    always_run: true
+    context: ci/prow/tf-fmt
+    decorate: true
+    name: pull-ci-origin-installer-tf-fmt
+    rerun_command: /test tf-fmt
+    spec:
+      containers:
+      - args:
         - ./hack/tf-fmt.sh
+        command:
+        - sh
+        env:
+        - name: IS_CONTAINER
+          value: "TRUE"
+        image: quay.io/coreos/terraform-alpine:v0.11.7
+        name: ""
+        resources: {}
+    trigger: ((?m)^/test( all| tf-fmt),?(\s+|$))
