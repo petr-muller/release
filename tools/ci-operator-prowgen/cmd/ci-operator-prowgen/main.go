@@ -17,6 +17,8 @@ import (
 	kubeapi "k8s.io/api/core/v1"
 	prowconfig "k8s.io/test-infra/prow/config"
 	prowkube "k8s.io/test-infra/prow/kube"
+
+	jc "github.com/openshift/release/tools/ci-operator-prowgen/pkg/jobconfig"
 )
 
 type options struct {
@@ -290,23 +292,6 @@ func inferConfigDirectories() (string, string, error) {
 	return configDir, jobDir, nil
 }
 
-func readJobConfig(path string) (*prowconfig.JobConfig, error) {
-	data, err := ioutil.ReadFile(path)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read Prow job config (%v)", err)
-	}
-
-	var jobConfig *prowconfig.JobConfig
-	if err := yaml.Unmarshal(data, &jobConfig); err != nil {
-		return nil, fmt.Errorf("failed to load Prow job config (%v)", err)
-	}
-	if jobConfig == nil { // happens when `data` is empty
-		return nil, fmt.Errorf("failed to load Prow job config")
-	}
-
-	return jobConfig, nil
-}
-
 // Print JobConfig to stdout as YAML
 func writeJobs(jobConfig *prowconfig.JobConfig) error {
 	jobConfigAsYaml, err := yaml.Marshal(*jobConfig)
@@ -314,19 +299,6 @@ func writeJobs(jobConfig *prowconfig.JobConfig) error {
 		return fmt.Errorf("failed to marshal the job config (%v)", err)
 	}
 	fmt.Printf(string(jobConfigAsYaml))
-	return nil
-}
-
-// Write JobConfig to a file as YAML
-func writeJobsToFile(path string, jobConfig *prowconfig.JobConfig) error {
-	jobConfigAsYaml, err := yaml.Marshal(*jobConfig)
-	if err != nil {
-		return fmt.Errorf("failed to marshal the job config (%v)", err)
-	}
-	if err := ioutil.WriteFile(path, jobConfigAsYaml, 0664); err != nil {
-		return fmt.Errorf("Failed to write job config to '%s' (%v)", path, err)
-	}
-
 	return nil
 }
 
@@ -387,14 +359,14 @@ func mergeJobConfig(destination, source *prowconfig.JobConfig) {
 // to the file path. If the file already contains some jobs, new ones will be
 // merged with the existing ones.
 func mergeJobsIntoFile(prowConfigPath string, jobConfig *prowconfig.JobConfig) error {
-	existingJobConfig, err := readJobConfig(prowConfigPath)
+	existingJobConfig, err := jc.ReadFromFile(prowConfigPath)
 	if err != nil {
 		existingJobConfig = &prowconfig.JobConfig{}
 	}
 
 	mergeJobConfig(existingJobConfig, jobConfig)
 
-	if err = writeJobsToFile(prowConfigPath, existingJobConfig); err != nil {
+	if err = jc.WriteToFile(prowConfigPath, existingJobConfig); err != nil {
 		return err
 	}
 
