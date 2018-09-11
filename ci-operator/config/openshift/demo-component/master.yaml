@@ -6,6 +6,11 @@ base_images:
     tag: '7'
 binary_build_commands: make install
 canonical_go_repository: github.com/openshift/demo-component
+images:
+- from: os
+  to: some-demo-image
+- from: os
+  to: other-demo-image
 resources:
   '*':
     limits:
@@ -26,3 +31,6 @@ tests:
 - as: lint
   commands: make lint
   from: src
+- as: integration
+  commands: make integration
+  from: bin
