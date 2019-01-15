@@ -70,3 +70,8 @@ tests:
   commands: ARTIFACT_DIR=/tmp/artifacts make integration
   container:
     from: bin
+- artifact_dir: /tmp/artifacts
+  as: awesome
+  commands: ARTIFACT_DIR=/tmp/artifacts make test
+  container:
+    from: src
