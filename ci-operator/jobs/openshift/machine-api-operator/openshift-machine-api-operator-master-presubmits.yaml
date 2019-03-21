@@ -17,6 +17,8 @@ presubmits:
     decorate: true
     decoration_config:
       skip_cloning: true
+    labels:
+      ci-operator.openshift.io/prowgen-controlled: "true"
     name: pull-ci-openshift-machine-api-operator-master-e2e-aws
     rerun_command: /test e2e-aws
     spec:
@@ -72,6 +74,8 @@ presubmits:
     decorate: true
     decoration_config:
       skip_cloning: true
+    labels:
+      ci-operator.openshift.io/prowgen-controlled: "true"
     name: pull-ci-openshift-machine-api-operator-master-e2e-aws-operator
     rerun_command: /test e2e-aws-operator
     spec:
@@ -127,6 +131,8 @@ presubmits:
     decorate: true
     decoration_config:
       skip_cloning: true
+    labels:
+      ci-operator.openshift.io/prowgen-controlled: "true"
     name: pull-ci-openshift-machine-api-operator-master-e2e-rhel-scaleup
     optional: true
     rerun_command: /test e2e-rhel-scaleup
@@ -187,6 +193,8 @@ presubmits:
     decorate: true
     decoration_config:
       skip_cloning: true
+    labels:
+      ci-operator.openshift.io/prowgen-controlled: "true"
     name: pull-ci-openshift-machine-api-operator-master-gofmt
     rerun_command: /test gofmt
     spec:
@@ -219,6 +227,8 @@ presubmits:
     decorate: true
     decoration_config:
       skip_cloning: true
+    labels:
+      ci-operator.openshift.io/prowgen-controlled: "true"
     name: pull-ci-openshift-machine-api-operator-master-golint
     rerun_command: /test golint
     spec:
@@ -251,6 +261,8 @@ presubmits:
     decorate: true
     decoration_config:
       skip_cloning: true
+    labels:
+      ci-operator.openshift.io/prowgen-controlled: "true"
     name: pull-ci-openshift-machine-api-operator-master-govet
     rerun_command: /test govet
     spec:
@@ -283,6 +295,8 @@ presubmits:
     decorate: true
     decoration_config:
       skip_cloning: true
+    labels:
+      ci-operator.openshift.io/prowgen-controlled: "true"
     name: pull-ci-openshift-machine-api-operator-master-images
     rerun_command: /test images
     spec:
@@ -316,6 +330,8 @@ presubmits:
     decorate: true
     decoration_config:
       skip_cloning: true
+    labels:
+      ci-operator.openshift.io/prowgen-controlled: "true"
     name: pull-ci-openshift-machine-api-operator-master-unit
     rerun_command: /test unit
     spec:

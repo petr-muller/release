@@ -633,6 +633,8 @@ presubmits:
     decorate: true
     decoration_config:
       skip_cloning: true
+    labels:
+      ci-operator.openshift.io/prowgen-controlled: "true"
     name: pull-ci-openshift-openshift-azure-release-v3-e2e-upgrade-v2.5
     optional: true
     rerun_command: /test e2e-upgrade-v2.5
@@ -666,6 +668,8 @@ presubmits:
     decorate: true
     decoration_config:
       skip_cloning: true
+    labels:
+      ci-operator.openshift.io/prowgen-controlled: "true"
     name: pull-ci-openshift-openshift-azure-release-v3-images
     rerun_command: /test images
     spec:
@@ -698,6 +702,8 @@ presubmits:
     decorate: true
     decoration_config:
       skip_cloning: true
+    labels:
+      ci-operator.openshift.io/prowgen-controlled: "true"
     name: pull-ci-openshift-openshift-azure-release-v3-unit
     rerun_command: /test unit
     spec:
@@ -785,6 +791,8 @@ presubmits:
     decorate: true
     decoration_config:
       skip_cloning: true
+    labels:
+      ci-operator.openshift.io/prowgen-controlled: "true"
     name: pull-ci-openshift-openshift-azure-release-v3-verify
     rerun_command: /test verify
     spec:
