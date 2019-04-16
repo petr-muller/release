@@ -89,8 +89,8 @@ def value(job, build_log=None):
     return (stop - start).total_seconds() / 60.
 
 
-color_map = matplotlib.cm.get_cmap('autumn', 2*len(args.regexps))  # 2* so we stay in the dark end
-no_match_color = [0, 0, 1, 0.3]
+color_map = matplotlib.cm.get_cmap('Set1')
+no_match_color = [0, 0, 1]
 success_color = [0, 1, 0, 0.3]
 def color(job, build_log=None, links=None):
     # FIXME: calculate your dot color, or return None to exclude the job
@@ -210,11 +210,11 @@ for line in pull_lines:
 
 
 entries.sort(key=lambda entry: entry['started'])
-#entries = [  # example of date filtering
-#    entry
-#    for entry in entries
-#    if entry['started'].isoformat().startswith('2019-03-22')
-#]
+entries = [  # example of date filtering
+    entry
+    for entry in entries
+    if entry['started'] > (datetime.datetime.now() - datetime.timedelta(days=1))
+]
 
 # FIXME: adjust to match color()
 no_match_failures = len([e for e in entries if e['color'] == no_match_color])
