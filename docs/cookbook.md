@@ -11,7 +11,17 @@ can provide a single snippet, not longer than 10 lines.
 
 ### Enroll a repository to follow OpenShift branching rules
 
-TBD
+DPTP tools recognize "official" components by looking into their ci-operator configs and finding out
+whether they promote images into the "official" imagestreams. This works even for repositories that
+do not produce any images (like various repositories with shared code like packages or libraries).
+To make DPTP tools recognize your component as official, put the `promotion` stanza into its
+ci-operator config:
+
+```yaml
+promotion:
+  name: "..."
+  namespace: ocp
+```
 
 ## Repositories on GitHub
 
