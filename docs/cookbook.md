@@ -61,3 +61,17 @@ $ repo-brancher --config-dir ci-operator/config/ \
 #### Documentation
 
 1. [Centralized Release Branching and Config Management](https://docs.google.com/document/d/1USkRjWPVxsRZNLG5BRJnm5Q1LSk-NtBgrxl2spFRRU8/edit#heading=h.3myk8y4544sk)
+
+### Recipe template
+
+**Who:** Personal
+
+Description
+
+#### Example (optional)
+```yaml
+Show shit
+```
+
+#### Documentation
+1. [Link](#recipe-template)
