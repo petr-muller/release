@@ -7,9 +7,19 @@ the markdown markup, if needed. The items should be goal-oriented (how to do X),
 formally written and ideally should provide many links to find out more about the topic. Each item
 can provide a single snippet, not longer than 10 lines.
 
+
+## Table of Contents
+
+1. [Component configuration for ci-operator](#component-configuration-for-ci-operator)
+    1. [Enroll a repository to follow OpenShift branching rules](#enroll-a-repository-to-follow-openshift-branching-rules)
+2. [Repositories on GitHub](#repositories-on-github)
+    1. [Create "official" OpenShift release branch](#create-official-openshift-release-branch)
+
 ## Component configuration for ci-operator
 
 ### Enroll a repository to follow OpenShift branching rules
+
+**Who:** Component owner
 
 DPTP tools recognize "official" components by looking into their ci-operator configs and finding out
 whether they promote images into the "official" imagestreams. This works even for repositories that
@@ -26,6 +36,8 @@ promotion:
 ## Repositories on GitHub
 
 ### Create "official" OpenShift release branch
+
+**Who:** DPTP engineer
 
 Run the [repo-brancher](https://github.com/openshift/ci-operator-prowgen/tree/master/cmd/repo-brancher)
 tool from the [ci-operator-prowgen](https://github.com/openshift/ci-operator-prowgen) repository
