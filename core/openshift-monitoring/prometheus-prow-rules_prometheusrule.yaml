@@ -7,7 +7,6 @@ items:
       prometheus: k8s
       role: alert-rules
     name: prometheus-prow-rules
-    namespace: openshift-monitoring
   spec:
     groups:
     - name: prow.rules
