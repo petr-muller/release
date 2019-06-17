@@ -2,7 +2,7 @@ ifeq ($(APPLY),)
 	APPLY := $(CURDIR)/../hack/apply-config.py
 endif
 
-SERVICES =
+SERVICES = openshift-monitoring
 
 .PHONY: resources admin-resources check
 
