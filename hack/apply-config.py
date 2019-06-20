@@ -3,6 +3,7 @@ import argparse
 import pathlib
 import re
 import subprocess
+import sys
 
 ADMIN_CONFIG_PATTERN = r'^admin_.*\.yaml$'
 ADMIN_CONFIG = re.compile(ADMIN_CONFIG_PATTERN)
@@ -85,13 +86,13 @@ def main():
 
     try:
         apply_dir(args.directory[0], args.level, args.user, not args.confirm)
-    except BaseException as err:
+    except Exception as err:
         print(err)
         return 1
 
     print("Success!")
-    return 1
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
