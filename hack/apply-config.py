@@ -35,7 +35,7 @@ def apply_config(config_path, user=None, dry=True):
     if user is not None:
         oc_apply.extend(["--as", user])
 
-    p = subprocess.run(oc_apply, capture_output=True)
+    p = subprocess.run(oc_apply, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     try:
         p.check_returncode()
         print(f"{' '.join(oc_apply)}: OK")
