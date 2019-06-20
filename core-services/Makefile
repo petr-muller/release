@@ -1,5 +1,5 @@
 ifeq ($(APPLY),)
-	APPLY := oc apply
+	APPLY := $(CURDIR)/../hack/apply-config.py
 endif
 
 SERVICES =
@@ -11,7 +11,7 @@ check:
 	$(foreach service,$(SERVICES),_hack/validate-core-service.sh $(service);)
 
 resources:
-	$(foreach service,$(SERVICES),make -C $(service) APPLY="$(APPLY)" resources;)
+	$(foreach service,$(SERVICES),$(APPLY) $(service);)
 
 admin-resources:
-	$(foreach service,$(SERVICES),make -C $(service) APPLY="$(APPLY)" admin-resources;)
+	$(foreach service,$(SERVICES),$(APPLY) $(service);)

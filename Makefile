@@ -1,4 +1,6 @@
-APPLY := oc apply
+ifeq ($(APPLY),)
+	APPLY="$(CURDIR)/hack/apply-config.py"
+endif
 
 .PHONY: check check-core dry-core-admin core-admin dry-core core
 
@@ -10,16 +12,16 @@ check-core:
 	@echo "Core service config check: PASS"
 
 dry-core-admin:
-	make core-admin APPLY="$(APPLY) --dry-run=true"
+	make -C core-services admin-resources APPLY="$(APPLY) --as=system:admin --level=admin"
 
 core-admin:
-	make -C core-services admin-resources APPLY="$(APPLY) --as=system:admin"
+	make dry-core-admin APPLY="$(APPLY) --confirm"
 
 dry-core:
-	make core APPLY="$(APPLY) --dry-run=true"
+	make -C core-services resources APPLY="$(APPLY) --level=standard"
 
 core:
-	make -C core-services resources APPLY="$(APPLY)"
+	make dry-core APPLY="$(APPLY) --confirm"
 
 # LEGACY TARGETS
 # You should not need to add new targets here.
