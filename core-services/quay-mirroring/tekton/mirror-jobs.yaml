@@ -28,7 +28,7 @@ items:
                   secretName: registry-push-credentials-quay.io-openshift-pipeline
               - name: config
                 configMap:
-                  name: tekton-image-mirror
+                  name: image-mirror
             containers:
               - name: "mirror"
                 image: "openshift/origin-cli:v4.1"
@@ -38,7 +38,7 @@ items:
                     mountPath: /home/mirror/.docker/config.json
                     subPath: config.json
                   - name: config
-                    mountPath: /etc/imagemirror/tekton
+                    mountPath: /etc/imagemirror
                 env:
                   - name: HOME
                     value: /home/mirror
@@ -47,7 +47,7 @@ items:
                 args:
                   - image
                   - mirror
-                  - -f=/etc/imagemirror/tekton/tekton_v0_3_quay
+                  - -f=/etc/imagemirror/mapping_tekton_v0_3_quay
                   - --skip-multiple-scopes # quay chokes when requesting multiple
 - apiVersion: batch/v1beta1
   kind: CronJob
@@ -76,7 +76,7 @@ items:
                   secretName: registry-push-credentials-quay.io-openshift-pipeline
               - name: config
                 configMap:
-                  name: tekton-image-mirror
+                  name: image-mirror
             containers:
               - name: "mirror"
                 image: "openshift/origin-cli:v4.1"
@@ -86,7 +86,7 @@ items:
                     mountPath: /home/mirror/.docker/config.json
                     subPath: config.json
                   - name: config
-                    mountPath: /etc/imagemirror/tekton
+                    mountPath: /etc/imagemirror
                 env:
                   - name: HOME
                     value: /home/mirror
@@ -95,5 +95,5 @@ items:
                 args:
                   - image
                   - mirror
-                  - -f=/etc/imagemirror/tekton/tekton_v0_4_quay
+                  - -f=/etc/imagemirror/mapping_tekton_v0_4_quay
                   - --skip-multiple-scopes # quay chokes when requesting multiple
