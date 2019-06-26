@@ -5,6 +5,7 @@ items:
   kind: CronJob
   metadata:
     name: "image-mirror-tekton-v0.3-quay"
+    namespace: ci
     labels:
       app: "image-mirror-tekton-v0.3-quay"
   spec:
@@ -52,6 +53,7 @@ items:
   kind: CronJob
   metadata:
     name: "image-mirror-tekton-v0.4-quay"
+    namespace: ci
     labels:
       app: "image-mirror-tekton-v0.4-quay"
   spec:

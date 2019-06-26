@@ -5,6 +5,7 @@ items:
   kind: CronJob
   metadata:
     name: "image-mirror-knative-v0.4-quay"
+    namespace: ci
     labels:
       app: "image-mirror-knative-v0.4-quay"
   spec:
@@ -52,6 +53,7 @@ items:
   kind: CronJob
   metadata:
     name: "image-mirror-knative-v0.5-quay"
+    namespace: ci
     labels:
       app: "image-mirror-knative-v0.5-quay"
   spec:
@@ -99,6 +101,7 @@ items:
   kind: CronJob
   metadata:
     name: "image-mirror-knative-v0.6-quay"
+    namespace: ci
     labels:
       app: "image-mirror-knative-v0.6-quay"
   spec:
@@ -146,6 +149,7 @@ items:
   kind: CronJob
   metadata:
     name: "image-mirror-knative-v0.7-quay"
+    namespace: ci
     labels:
       app: "image-mirror-knative-v0.7-quay"
   spec:
