@@ -47,7 +47,7 @@ items:
               args:
               - image
               - mirror
-              - -f=/etc/imagemirror/origin_v3_10
+              - -f=/etc/imagemirror/mapping_origin_v3_10
 - apiVersion: batch/v1beta1
   kind: CronJob
   metadata:
@@ -94,7 +94,7 @@ items:
               args:
               - image
               - mirror
-              - -f=/etc/imagemirror/origin_v3_11
+              - -f=/etc/imagemirror/mapping_origin_v3_11
 - apiVersion: batch/v1beta1
   kind: CronJob
   metadata:
@@ -141,7 +141,7 @@ items:
               args:
               - image
               - mirror
-              - -f=/etc/imagemirror/origin_v3_11_quay
+              - -f=/etc/imagemirror/mapping_origin_v3_11_quay
               - --skip-multiple-scopes # quay chokes when requesting multiple
 - apiVersion: batch/v1beta1
   kind: CronJob
@@ -189,7 +189,7 @@ items:
               args:
               - image
               - mirror
-              - -f=/etc/imagemirror/origin_4_1
+              - -f=/etc/imagemirror/mapping_origin_4_1
               - --skip-multiple-scopes # quay chokes when requesting multiple
 - apiVersion: batch/v1beta1
   kind: CronJob
@@ -237,5 +237,5 @@ items:
               args:
               - image
               - mirror
-              - -f=/etc/imagemirror/origin_4_2
+              - -f=/etc/imagemirror/mapping_origin_4_2
               - --skip-multiple-scopes # quay chokes when requesting multiple
