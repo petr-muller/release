@@ -28,7 +28,7 @@ items:
                 secretName: registry-push-credentials-quay.io-openshiftio
             - name: config
               configMap:
-                name: toolchain-image-mirror
+                name: image-mirror
             containers:
             - name: "mirror"
               image: "openshift/origin-cli:v4.0"
@@ -47,5 +47,5 @@ items:
               args:
               - image
               - mirror
-              - -f=/etc/imagemirror/toolchain_v0_0_1_quay
+              - -f=/etc/imagemirror/mapping_toolchain_v0_0_1_quay
               - --skip-multiple-scopes # quay chokes when requesting multiple
