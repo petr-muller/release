@@ -28,7 +28,7 @@ items:
                 secretName: registry-push-credentials-quay.io-openshift-knative
             - name: config
               configMap:
-                name: knative-image-mirror
+                name: image-mirror
             containers:
             - name: "mirror"
               image: "quay.io/openshift/origin-cli:4.1"
@@ -38,7 +38,7 @@ items:
                 mountPath: /home/mirror/.docker/config.json
                 subPath: config.json
               - name: config
-                mountPath: /etc/imagemirror/knative
+                mountPath: /etc/imagemirror
               env:
               - name: HOME
                 value: /home/mirror
@@ -47,7 +47,7 @@ items:
               args:
               - image
               - mirror
-              - -f=/etc/imagemirror/knative/knative_v0_4_quay
+              - -f=/etc/imagemirror/mapping_knative_v0_4_quay
               - --skip-multiple-scopes # quay chokes when requesting multiple
 - apiVersion: batch/v1beta1
   kind: CronJob
@@ -76,7 +76,7 @@ items:
                 secretName: registry-push-credentials-quay.io-openshift-knative
             - name: config
               configMap:
-                name: knative-image-mirror
+                name: image-mirror
             containers:
             - name: "mirror"
               image: "openshift/origin-cli:v4.0"
@@ -86,7 +86,7 @@ items:
                 mountPath: /home/mirror/.docker/config.json
                 subPath: config.json
               - name: config
-                mountPath: /etc/imagemirror/knative
+                mountPath: /etc/imagemirror
               env:
               - name: HOME
                 value: /home/mirror
@@ -95,7 +95,7 @@ items:
               args:
               - image
               - mirror
-              - -f=/etc/imagemirror/knative/knative_v0_5_quay
+              - -f=/etc/imagemirror/mapping_knative_v0_5_quay
               - --skip-multiple-scopes # quay chokes when requesting multiple
 - apiVersion: batch/v1beta1
   kind: CronJob
@@ -124,7 +124,7 @@ items:
                 secretName: registry-push-credentials-quay.io-openshift-knative
             - name: config
               configMap:
-                name: knative-image-mirror
+                name: image-mirror
             containers:
             - name: "mirror"
               image: "openshift/origin-cli:v4.0"
@@ -134,7 +134,7 @@ items:
                 mountPath: /home/mirror/.docker/config.json
                 subPath: config.json
               - name: config
-                mountPath: /etc/imagemirror/knative
+                mountPath: /etc/imagemirror
               env:
               - name: HOME
                 value: /home/mirror
@@ -143,7 +143,7 @@ items:
               args:
               - image
               - mirror
-              - -f=/etc/imagemirror/knative/knative_v0_6_quay
+              - -f=/etc/imagemirror/mapping_knative_v0_6_quay
               - --skip-multiple-scopes # quay chokes when requesting multiple
 - apiVersion: batch/v1beta1
   kind: CronJob
@@ -172,7 +172,7 @@ items:
                 secretName: registry-push-credentials-quay.io-openshift-knative
             - name: config
               configMap:
-                name: knative-image-mirror
+                name: image-mirror
             containers:
             - name: "mirror"
               image: "openshift/origin-cli:v4.0"
@@ -182,7 +182,7 @@ items:
                 mountPath: /home/mirror/.docker/config.json
                 subPath: config.json
               - name: config
-                mountPath: /etc/imagemirror/knative
+                mountPath: /etc/imagemirror
               env:
               - name: HOME
                 value: /home/mirror
@@ -191,5 +191,5 @@ items:
               args:
               - image
               - mirror
-              - -f=/etc/imagemirror/knative/knative_v0_7_quay
+              - -f=/etc/imagemirror/mapping_knative_v0_7_quay
               - --skip-multiple-scopes # quay chokes when requesting multiple
