@@ -1,16 +1,16 @@
 presubmits:
-  openshift/oauth-server:
+  openshift/openshift-apiserver:
   - agent: kubernetes
     always_run: true
     branches:
-    - master
+    - release-4.3
     context: ci/prow/e2e-aws
     decorate: true
     decoration_config:
       skip_cloning: true
     labels:
       ci-operator.openshift.io/prowgen-controlled: "true"
-    name: pull-ci-openshift-oauth-server-master-e2e-aws
+    name: pull-ci-openshift-openshift-apiserver-release-4.3-e2e-aws
     rerun_command: /test e2e-aws
     spec:
       containers:
@@ -29,8 +29,8 @@ presubmits:
         - name: CONFIG_SPEC
           valueFrom:
             configMapKeyRef:
-              key: openshift-oauth-server-master.yaml
-              name: ci-operator-master-configs
+              key: openshift-openshift-apiserver-release-4.3.yaml
+              name: ci-operator-4.3-configs
         - name: JOB_NAME_SAFE
           value: e2e-aws
         - name: TEST_COMMAND
@@ -67,14 +67,14 @@ presubmits:
   - agent: kubernetes
     always_run: true
     branches:
-    - master
+    - release-4.3
     context: ci/prow/e2e-aws-upgrade
     decorate: true
     decoration_config:
       skip_cloning: true
     labels:
       ci-operator.openshift.io/prowgen-controlled: "true"
-    name: pull-ci-openshift-oauth-server-master-e2e-aws-upgrade
+    name: pull-ci-openshift-openshift-apiserver-release-4.3-e2e-aws-upgrade
     rerun_command: /test e2e-aws-upgrade
     spec:
       containers:
@@ -90,8 +90,8 @@ presubmits:
         - name: CONFIG_SPEC
           valueFrom:
             configMapKeyRef:
-              key: openshift-oauth-server-master.yaml
-              name: ci-operator-master-configs
+              key: openshift-openshift-apiserver-release-4.3.yaml
+              name: ci-operator-4.3-configs
         image: ci-operator:latest
         imagePullPolicy: Always
         name: ""
@@ -118,14 +118,14 @@ presubmits:
   - agent: kubernetes
     always_run: true
     branches:
-    - master
+    - release-4.3
     context: ci/prow/images
     decorate: true
     decoration_config:
       skip_cloning: true
     labels:
       ci-operator.openshift.io/prowgen-controlled: "true"
-    name: pull-ci-openshift-oauth-server-master-images
+    name: pull-ci-openshift-openshift-apiserver-release-4.3-images
     rerun_command: /test images
     spec:
       containers:
@@ -134,15 +134,14 @@ presubmits:
         - --give-pr-author-access-to-namespace=true
         - --sentry-dsn-path=/etc/sentry-dsn/ci-operator
         - --target=[images]
-        - --target=[release:latest]
         command:
         - ci-operator
         env:
         - name: CONFIG_SPEC
           valueFrom:
             configMapKeyRef:
-              key: openshift-oauth-server-master.yaml
-              name: ci-operator-master-configs
+              key: openshift-openshift-apiserver-release-4.3.yaml
+              name: ci-operator-4.3-configs
         image: ci-operator:latest
         imagePullPolicy: Always
         name: ""
@@ -162,14 +161,14 @@ presubmits:
   - agent: kubernetes
     always_run: true
     branches:
-    - master
+    - release-4.3
     context: ci/prow/unit
     decorate: true
     decoration_config:
       skip_cloning: true
     labels:
       ci-operator.openshift.io/prowgen-controlled: "true"
-    name: pull-ci-openshift-oauth-server-master-unit
+    name: pull-ci-openshift-openshift-apiserver-release-4.3-unit
     rerun_command: /test unit
     spec:
       containers:
@@ -184,8 +183,8 @@ presubmits:
         - name: CONFIG_SPEC
           valueFrom:
             configMapKeyRef:
-              key: openshift-oauth-server-master.yaml
-              name: ci-operator-master-configs
+              key: openshift-openshift-apiserver-release-4.3.yaml
+              name: ci-operator-4.3-configs
         image: ci-operator:latest
         imagePullPolicy: Always
         name: ""
@@ -205,14 +204,14 @@ presubmits:
   - agent: kubernetes
     always_run: true
     branches:
-    - master
+    - release-4.3
     context: ci/prow/verify
     decorate: true
     decoration_config:
       skip_cloning: true
     labels:
       ci-operator.openshift.io/prowgen-controlled: "true"
-    name: pull-ci-openshift-oauth-server-master-verify
+    name: pull-ci-openshift-openshift-apiserver-release-4.3-verify
     rerun_command: /test verify
     spec:
       containers:
@@ -227,8 +226,8 @@ presubmits:
         - name: CONFIG_SPEC
           valueFrom:
             configMapKeyRef:
-              key: openshift-oauth-server-master.yaml
-              name: ci-operator-master-configs
+              key: openshift-openshift-apiserver-release-4.3.yaml
+              name: ci-operator-4.3-configs
         image: ci-operator:latest
         imagePullPolicy: Always
         name: ""
@@ -248,14 +247,14 @@ presubmits:
   - agent: kubernetes
     always_run: true
     branches:
-    - master
+    - release-4.3
     context: ci/prow/verify-deps
     decorate: true
     decoration_config:
       skip_cloning: true
     labels:
       ci-operator.openshift.io/prowgen-controlled: "true"
-    name: pull-ci-openshift-oauth-server-master-verify-deps
+    name: pull-ci-openshift-openshift-apiserver-release-4.3-verify-deps
     rerun_command: /test verify-deps
     spec:
       containers:
@@ -270,8 +269,8 @@ presubmits:
         - name: CONFIG_SPEC
           valueFrom:
             configMapKeyRef:
-              key: openshift-oauth-server-master.yaml
-              name: ci-operator-master-configs
+              key: openshift-openshift-apiserver-release-4.3.yaml
+              name: ci-operator-4.3-configs
         image: ci-operator:latest
         imagePullPolicy: Always
         name: ""
