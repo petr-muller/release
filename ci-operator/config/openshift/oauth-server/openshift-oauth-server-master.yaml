@@ -16,9 +16,10 @@ images:
   from: base
   to: oauth-server
 # Do not promote until migrated from staging
-#promotion:
-#  name: "4.2"
-#  namespace: ocp
+promotion:
+  disabled: true
+  name: "4.2"
+  namespace: ocp
 resources:
   '*':
     limits:

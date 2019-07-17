@@ -10,16 +10,16 @@ build_root:
     name: release
     namespace: openshift
     tag: golang-1.12
-canonical_go_repository: github.com/openshift/openshift-apiserver
+canonical_go_repository: github.com/openshift/template-service-broker
 images:
-- dockerfile_path: images/Dockerfile.rhel
+- dockerfile_path: Dockerfile.rhel
   from: base
   inputs:
     bin:
       as:
-        - registry.svc.ci.openshift.org/ocp/builder:golang-1.12
-  to: openshift-apiserver
-# Do not promote until migrated from staging
+      - registry.svc.ci.openshift.org/ocp/builder:golang-1.12
+      paths: null
+  to: template-service-broker
 promotion:
   disabled: true
   name: "4.2"

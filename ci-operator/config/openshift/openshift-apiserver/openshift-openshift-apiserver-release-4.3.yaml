@@ -1,6 +1,6 @@
 base_images:
   base:
-    name: "4.2"
+    name: "4.3"
     namespace: ocp
     tag: base
 binary_build_commands: make build --warn-undefined-variables
@@ -17,12 +17,12 @@ images:
   inputs:
     bin:
       as:
-        - registry.svc.ci.openshift.org/ocp/builder:golang-1.12
+      - registry.svc.ci.openshift.org/ocp/builder:golang-1.12
+      paths: null
   to: openshift-apiserver
-# Do not promote until migrated from staging
 promotion:
   disabled: true
-  name: "4.2"
+  name: "4.3"
   namespace: ocp
 resources:
   '*':
@@ -32,7 +32,7 @@ resources:
       cpu: "3"
       memory: 6Gi
 tag_specification:
-  name: "4.2"
+  name: "4.3"
   namespace: ocp
 test_binary_build_commands: make build GOFLAGS='-race' --warn-undefined-variables
 tests:

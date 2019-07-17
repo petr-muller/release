@@ -20,9 +20,10 @@ images:
         - registry.svc.ci.openshift.org/ocp/builder:golang-1.12
   to: cli
 # Do not promote until migrated from staging
-#promotion:
-#  name: "4.2"
-#  namespace: ocp
+promotion:
+  disabled: true
+  name: "4.2"
+  namespace: ocp
 resources:
   '*':
     limits:
