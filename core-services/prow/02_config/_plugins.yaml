@@ -1218,11 +1218,8 @@ config_updater:
     ci-operator/jobs/**/*periodics*.yaml:
       name: job-config-misc
       gzip: true
-    ci-operator/jobs/**/*master-presubmits.yaml:
-      name: job-config-master-presubmits
-      gzip: true
-    ci-operator/jobs/**/*master-postsubmits.yaml:
-      name: job-config-master-postsubmits
+    ci-operator/jobs/**/*master-*submits.yaml:
+      name: job-config-master
       gzip: true
     ci-operator/jobs/**/*master-*submits.yaml:
       name: job-config-master
