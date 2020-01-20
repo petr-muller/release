@@ -4,11 +4,15 @@ A personal index of things.
 
 ## OpenShift CI
 
+### api.ci
+
+### ci/prow/correctly-sharded-config
+
+### DPTP
+
 ### openshift/release
 
 ### openshift-release-master-config-bootstrapper
-
-### ci/prow/correctly-sharded-config
 
 ## Software
 
@@ -50,6 +54,23 @@ An example bot comment informing that ConfigMaps were updated after a merge.
 
 - [config-bootstrapper](#config-bootstrapper)
 - [openshift-release-master-config-bootstrapper](#openshift-release-master-config-bootstrapper)
+
+### Deck
+
+### Prow
+
+Prow is a Kubernetes-based CI/CD system. It is used both in Kubernetes upstream
+community and in OpenShift. Its main purpose is to execute containerized testing
+workloads and to automate and enforce various tasks and development workflow
+steps, primarily in GitHub. Prow consists of several small microservices running
+on a Kubernetes cluster. The OpenShift CI instance runs on the
+[api.ci](#apici) cluster and is operated by [DPTP](#dptp).
+
+**LINKS**
+
+[upstream](https://github.com/kubernetes/test-infra/tree/master/prow) | [Deck frontend to OpenShift CI instance of Prow](https://prow.svc.ci.openshift.org/)
+
+### Prow Plugins
 
 ### Prow
 
