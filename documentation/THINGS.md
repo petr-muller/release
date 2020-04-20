@@ -6,15 +6,53 @@ A personal index of things.
 
 ### api.ci
 
+### app.ci
+
+### build01
+
 ### ci/prow/correctly-sharded-config
 
 ### DPTP
 
 ### openshift/release
 
+[openshift/release](https://github.com/openshift/release) is the GitHub repository that holds
+ various configuration needed to build, test and release OpenShift. The repository is owned by
+  [DPTP](#dptp). The configuration can be divided in these major areas:
+
+- [`core-services/prow`](https://github.com/openshift/release/tree/master/core-services/prow): Configuration for OpenShift CI instance of [Prow](#prow)
+- [`ci-operator/{config,jobs,step-registry}`](https://github.com/openshift/release/tree/master/ci-operator): [Prow job configuration](#prow-job-configuration), [ci-operator](#ci-operator)
+ [configuration](#co-operator-configuration) and [shared step registry](#shared-step-registry) for
+  OpenShift components
+- [`core-services`](https://github.com/openshift/release/tree/master/core-services): Various configuration for important services running on [api.ci](#apici)
+- [`services`](https://github.com/openshift/release/tree/master/services): Various configuration for other services running on [api.ci](#apici)
+- [`clusters`](https://github.com/openshift/release/tree/master/clusters): Various configuration for services running on our other clusters, [build01](#build01) and
+ [app.ci](#appci)
+
+Most of the configuration in openshift/release is automatically applied after merge to
+ [api.ci](#apici) cluster by either the [applyconfig](#applyconfig) tool or the
+ [config-updater](#config-updater)
+ [Prow plugin](#prow-plugins).
+
+**LINKS**
+
+- [openshift/release](https://github.com/openshift/release/)
+
+**SEE ALSO**
+
+- [ci/prow/correctly-sharded-config](#ciprowcorrectly-sharded-config)
+
 ### openshift-release-master-config-bootstrapper
 
+### Shared step registry
+
 ## Software
+
+### applyconfig
+
+### ci-operator
+
+### co-operator configuration
 
 ### config-bootstrapper
 
@@ -74,4 +112,8 @@ on a Kubernetes cluster. The OpenShift CI instance runs on the
 
 ### Prow
 
+### Prow Job Configuration
+
 ### Prow Plugins
+
+WAT
