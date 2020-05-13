@@ -102,7 +102,7 @@ community and in OpenShift. Its main purpose is to execute containerized testing
 workloads and to automate and enforce various tasks and development workflow
 steps, primarily in GitHub. Prow consists of several small microservices running
 on a Kubernetes cluster. The OpenShift CI instance runs on the
-[api.ci](#apici) cluster and is operated by [DPTP](#dptp).
+[app.ci](#appci) cluster and is operated by [DPTP](#dptp).
 
 **LINKS**
 
