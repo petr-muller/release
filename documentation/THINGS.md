@@ -122,7 +122,7 @@ information about plugins enabled for repos in that specific Prow instance.
 
 **LINKS**
 
-[Prow Plugin Catalog](https://prow.svc.ci.openshift.org/plugins) | [kubernetes/test-infra](https://github.com/kubernetes/test-infra/tree/master/prow/plugins) | [openshift/release](https://github.com/openshift/release/blob/master/core-services/prow/02_config/_plugins.yaml)
+[Prow Plugins enabled on OpenShift CI](https://prow.svc.ci.openshift.org/plugins) | [Prow plugins code and upstream documentation](https://github.com/kubernetes/test-infra/tree/master/prow/plugins) | [Plugin configuration for OpenShift CI](https://github.com/openshift/release/blob/master/core-services/prow/02_config/_plugins.yaml)
 
 **SEE ALSO**
 
