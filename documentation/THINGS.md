@@ -95,6 +95,8 @@ An example bot comment informing that ConfigMaps were updated after a merge.
 
 ### Deck
 
+### Hook
+
 ### Prow
 
 Prow is a Kubernetes-based CI/CD system. It is used both in Kubernetes upstream
@@ -109,6 +111,22 @@ on a Kubernetes cluster. The OpenShift CI instance runs on the
 [upstream](https://github.com/kubernetes/test-infra/tree/master/prow) | [Deck frontend to OpenShift CI instance of Prow](https://prow.svc.ci.openshift.org/)
 
 ### Prow Plugins
+
+Prow Plugins are sub-component of [Hook](#hook) that consume GitHub webhooks
+related to their function and can be individually enabled per repository or org.
+There are *internal* plugins, which are compiled directly to Hook binary, and
+*external* ones which run stand-alone and Hook just delivers received webhooks
+to their endpoints. Configuration for all plugins is specified separately from
+Prow configuration. [Deck](#deck) has a `/plugins` endpoint which shows
+information about plugins enabled for repos in that specific Prow instance.
+
+**LINKS**
+
+[Prow Plugin Catalog](https://prow.svc.ci.openshift.org/plugins) | [kubernetes/test-infra](https://github.com/kubernetes/test-infra/tree/master/prow/plugins) | [openshift/release](https://github.com/openshift/release/blob/master/core-services/prow/02_config/_plugins.yaml)
+
+**SEE ALSO**
+
+- [Prow](#prow)
 
 ### Prow
 
