@@ -1,3 +1,4 @@
 # OpenShift CI Automation
 - _Periodically, something does something [to achieve something]_
 - Each minute, all imagestreams on build01 import latest images from api.ci: [job](https://deck-ci.apps.ci.l2s4.p1.openshiftapps.com/?job=periodic-ci-image-import-to-build01) | [def](https://github.com/openshift/release/blob/92215e080639899e2f2936d2db1aa35828332b07/ci-operator/jobs/infra-periodics.yaml#L2-L28)
+- Each 30m minutes, [Peribolos](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/peribolos) reconciles GitHub organization metadata, membership, teams and content of [openshift](https://github.com/openshift/) and [openshift-priv](https://github.com/openshift-priv) organizations: [job](https://deck-ci.apps.ci.l2s4.p1.openshiftapps.com/?job=periodic-org-sync) | [def](https://github.com/openshift/release/blob/6f2025056ed9d620816a4dd31dbaa0865a645f45/ci-operator/jobs/infra-periodics.yaml#L726-L772) | [config](https://github.com/openshift/config)
