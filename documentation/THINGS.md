@@ -4,6 +4,27 @@ A personal index of things.
 
 ## OpenShift CI
 
+# OpenShift CI
+
+OpenShift CI is a distributed CI system supporting the development of
+OpenShift and other projects related to it. OpenShift CI's main building block
+is a [Prow](#prow) instance running on the [app.ci](#appci) cluster, and
+[ci-operator](#ci-operator), which is the tool run inside individual CI jobs
+that builds OpenShift artifacts and orchestrates test workloads. Test
+workloads are scheduled on build clusters (currently there are two,
+[api.ci](#apici) and [build01](#build01)). OpenShift CI also relies on the
+central image repository on [api.ci](#apici) cluster.
+
+Most configuration for OpenShift CI lives in
+[openshift/release](#openshiftrelease) repository. Code for
+[ci-operator](#ci-operator) and all other CI-related tools lives in
+[openshift/ci-tools](#openshiftci-tools) repository. The team responsible for
+running and developing OpenShift CI is [DPTP](#openshiftci-tools).
+
+**LINKS**
+- [Front-end to OpenShift Prow instance](https://prow.ci.openshift.org/)
+- [An overview of ci-operator](https://prow.ci.openshift.org/)
+
 ### api.ci
 
 ### app.ci
@@ -11,6 +32,8 @@ A personal index of things.
 ### build01
 
 ### ci/prow/correctly-sharded-config
+
+### openshift/ci-tools
 
 ### DPTP
 
