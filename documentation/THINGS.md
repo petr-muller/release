@@ -2,7 +2,11 @@
 
 A personal index of things.
 
-## OpenShift CI
+# Table of Contents
+
+1. [OpenShift CI](#openshift-ci)
+    1. [api.ci](#apici)
+    2. [app.ci](#appci)
 
 # OpenShift CI
 
