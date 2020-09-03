@@ -29,7 +29,30 @@ running and developing OpenShift CI is [DPTP](#openshiftci-tools).
 
 ### app.ci
 
+`app.ci` is an OpenShift 4 cluster run in
+[OpenShift Dedicated](https://www.openshift.com/products/dedicated/). It mainly
+serves as a cluster running the [Prow](#prow) control plane, as well as some other
+important CI services (but not Prow jobs except for several exceptions tied to
+the CI infrastructure itself). The cluster is deployed in AWS. All config for
+services running on `app.ci` should be checked in the
+[openshift/release](#openshiftrelease) repository.
+
+**LINKS**
+
+- [app.ci console](https://console-openshift-console.apps.ci.l2s4.p1.openshiftapps.com/dashboards)
+- [openshift/release directory holding config for services on app.ci](https://github.com/openshift/release/tree/master/clusters/app.ci)
+
+**SEE ALSO**
+
+- [api.ci](#apici)
+- [build01](#build01)
+- [build02](#build02)
+
 ### build01
+
+### build02
+
+### vsphere
 
 ### ci/prow/correctly-sharded-config
 
