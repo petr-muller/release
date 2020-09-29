@@ -7,6 +7,8 @@ A personal index of things.
 1. [OpenShift CI](#openshift-ci)
     1. [api.ci](#apici)
     2. [app.ci](#appci)
+    3. [build01](#build01)
+    4. [build02](#build02)
 
 # OpenShift CI
 
@@ -52,6 +54,8 @@ repository.
 - [build02](#build02)
 - [vsphere](#vsphere)
 
+---
+
 ### app.ci
 
 `app.ci` is an OpenShift 4 cluster run in
@@ -73,11 +77,11 @@ repository.
 - [build01](#build01)
 - [build02](#build02)
 
+---
+
 ### build01
 
 ### build02
-
-### vsphere
 
 ### ci/prow/correctly-sharded-config
 
@@ -118,6 +122,8 @@ or the [config-updater](#config-updater) [Prow plugin](#prow-plugins).
 ### openshift-release-master-config-bootstrapper
 
 ### Shared step registry
+
+### vsphere
 
 ## Software
 
