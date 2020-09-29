@@ -10,14 +10,14 @@ A personal index of things.
 
 # OpenShift CI
 
-OpenShift CI is a distributed CI system supporting the development of
-OpenShift and other projects related to it. OpenShift CI's main building block
-is a [Prow](#prow) instance running on the [app.ci](#appci) cluster, and
+OpenShift CI is a distributed CI system supporting the development of OpenShift
+and other projects related to it. OpenShift CI's main building block is a
+[Prow](#prow) instance running on the [app.ci](#appci) cluster, and
 [ci-operator](#ci-operator), which is the tool run inside individual CI jobs
-that builds OpenShift artifacts and orchestrates test workloads. Test
-workloads are scheduled on build clusters (currently there are two,
-[api.ci](#apici) and [build01](#build01)). OpenShift CI also relies on the
-central image repository on [api.ci](#apici) cluster.
+that builds OpenShift artifacts and orchestrates test workloads. Test workloads
+are scheduled on build clusters (currently there are two, [api.ci](#apici) and
+[build01](#build01)). OpenShift CI also relies on the central image repository
+ on [api.ci](#apici) cluster.
 
 Most configuration for OpenShift CI lives in
 [openshift/release](#openshiftrelease) repository. Code for
@@ -31,6 +31,27 @@ running and developing OpenShift CI is [DPTP](#openshiftci-tools).
 
 ### api.ci
 
+`api.ci` is an OpenShift 3.11 cluster that serves two main purposes. First, it
+serves as a build cluster for [Prow](#prow) jobs. Second, it is a main source of
+truth for image content: it carries all
+[Integration `ImageStream`s](#integration-imagestreams). The cluster is deployed
+in GCP and has autoscaling enabled. The access to the cluster is provided to all
+members of the `openshift` group on GitHub. All config for services running on
+`api.ci` should be checked in the [openshift/release](#openshiftrelease)
+repository.
+
+**LINKS**
+
+- [`api.ci` console](https://api.ci.openshift.org)
+- [openshift/release directory holding config for services on api.ci](https://github.com/openshift/release/tree/master/core-services)
+
+**SEE ALSO**
+
+- [app.ci](#appci)
+- [build01](#build01)
+- [build02](#build02)
+- [vsphere](#vsphere)
+
 ### app.ci
 
 `app.ci` is an OpenShift 4 cluster run in
@@ -38,8 +59,8 @@ running and developing OpenShift CI is [DPTP](#openshiftci-tools).
 serves as a cluster running the [Prow](#prow) control plane, as well as some other
 important CI services (but not Prow jobs except for several exceptions tied to
 the CI infrastructure itself). The cluster is deployed in AWS. All config for
-services running on `app.ci` should be checked in the
-[openshift/release](#openshiftrelease) repository.
+services running on `app.ci` should be checked in the [openshift/release](#openshiftrelease)
+repository.
 
 **LINKS**
 
@@ -64,11 +85,14 @@ services running on `app.ci` should be checked in the
 
 ### DPTP
 
+### Integration Imagestreams
+
 ### openshift/release
 
-[openshift/release](https://github.com/openshift/release) is the GitHub repository that holds
- various configuration needed to build, test and release OpenShift. The repository is owned by
-  [DPTP](#dptp). The configuration can be divided in these major areas:
+[openshift/release](https://github.com/openshift/release) is the GitHub
+repository that holds various configuration needed to build, test and release
+OpenShift. The repository is owned by [DPTP](#dptp). The configuration can be
+divided in these major areas:
 
 - [`core-services/prow`](https://github.com/openshift/release/tree/master/core-services/prow): Configuration for OpenShift CI instance of [Prow](#prow)
 - [`ci-operator/{config,jobs,step-registry}`](https://github.com/openshift/release/tree/master/ci-operator): [Prow job configuration](#prow-job-configuration), [ci-operator](#ci-operator)
@@ -79,10 +103,9 @@ services running on `app.ci` should be checked in the
 - [`clusters`](https://github.com/openshift/release/tree/master/clusters): Various configuration for services running on our other clusters, [build01](#build01) and
  [app.ci](#appci)
 
-Most of the configuration in openshift/release is automatically applied after merge to
- [api.ci](#apici) cluster by either the [applyconfig](#applyconfig) tool or the
- [config-updater](#config-updater)
- [Prow plugin](#prow-plugins).
+Most of the configuration in openshift/release is automatically applied after
+merge to [api.ci](#apici) cluster by either the [applyconfig](#applyconfig) tool
+or the [config-updater](#config-updater) [Prow plugin](#prow-plugins).
 
 **LINKS**
 
