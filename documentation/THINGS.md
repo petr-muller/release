@@ -5,10 +5,14 @@ A personal index of things.
 # Table of Contents
 
 1. [OpenShift CI](#openshift-ci)
-    1. [api.ci](#apici)
-    2. [app.ci](#appci)
-    3. [build01](#build01)
-    4. [build02](#build02)
+    1. [Clusters](#clusters)
+        1. [api.ci](#apici)
+        2. [app.ci](#appci)
+        3. [build01](#build01)
+        4. [build02](#build02)
+        5. [vsphere]($vsphere)
+    2. [branch-ci-openshift-release-master-build01-apply](#branch-ci-openshift-release-master-build01-apply)
+    3. [ci/prow/correctly-sharded-config](#ciprowcorrectly-sharded-config)
 
 # OpenShift CI
 
@@ -30,6 +34,8 @@ running and developing OpenShift CI is [DPTP](#openshiftci-tools).
 **LINKS**
 - [Front-end to OpenShift Prow instance](https://prow.ci.openshift.org/)
 - [An overview of ci-operator](https://prow.ci.openshift.org/)
+
+## Clusters
 
 ### api.ci
 
@@ -81,7 +87,41 @@ repository.
 
 ### build01
 
+`build01` is an OpenShift 4 cluster that serves mainly as a build cluster for
+[Prow](#prow) jobs. The cluster is deployed in AWS. The access to the cluster is
+provided to all members of the `openshift` group on GitHub. All config for
+services running on `build01` should be checked in the
+[openshift/release](#openshiftrelease) repository, from where it is applied to
+the cluster by the [applyconfig](#applyconfig) tool.
+
+**LINKS**
+
+- [build01 console](https://console.build01.ci.openshift.org/dashboards)
+- [openshift/release directory holding config for services on build01](https://github.com/openshift/release/tree/master/clusters/build-clusters/01_cluster)
+
+**SEE ALSO**
+
+- [pull-ci-openshift-release-master-build01-dry](#pull-ci-openshift-release-master-build01-dry)
+- [periodic-openshift-release-master-build01-apply](#periodic-openshift-release-master-build01-apply)
+- [branch-ci-openshift-release-master-build01-apply](#branch-ci-openshift-release-master-build01-apply)
+- [api.ci](#apici)
+- [app.ci](#appci)
+- [build02](#build02)
+- [vsphere](#vsphere)
+
+---
+
 ### build02
+
+---
+
+### vsphere
+
+---
+
+## Infrastructure Jobs
+
+### branch-ci-openshift-release-master-build01-apply
 
 ### ci/prow/correctly-sharded-config
 
@@ -121,9 +161,11 @@ or the [config-updater](#config-updater) [Prow plugin](#prow-plugins).
 
 ### openshift-release-master-config-bootstrapper
 
-### Shared step registry
+### periodic-openshift-release-master-build01-apply
 
-### vsphere
+### pull-ci-openshift-release-master-build01-dry
+
+### Shared step registry
 
 ## Software
 
