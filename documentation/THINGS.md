@@ -10,9 +10,10 @@ A personal index of things.
         2. [app.ci](#appci)
         3. [build01](#build01)
         4. [build02](#build02)
-        5. [vsphere]($vsphere)
-    2. [branch-ci-openshift-release-master-build01-apply](#branch-ci-openshift-release-master-build01-apply)
-    3. [ci/prow/correctly-sharded-config](#ciprowcorrectly-sharded-config)
+        5. [vsphere](#vsphere)
+    2. [Infrastructure Jobs](#infrastructure-jobs)
+        1. [branch-ci-openshift-release-master-build01-apply](#branch-ci-openshift-release-master-build01-apply)
+        2. [ci/prow/correctly-sharded-config](#ciprowcorrectly-sharded-config)
 
 # OpenShift CI
 
@@ -113,6 +114,25 @@ the cluster by the [applyconfig](#applyconfig) tool.
 
 ### build02
 
+`build02` is an OpenShift 4 cluster that serves mainly as a build cluster for
+[Prow](#prow) jobs. The cluster is deployed in GCP. The access to the cluster is
+provided to all members of the `openshift` group on GitHub. All config for
+services running on `build02` should be checked in the
+[openshift/release](#openshiftrelease) repository, from where it is applied to
+the cluster by the [applyconfig](#applyconfig) tool.
+
+**LINKS**
+
+- [build02 console](https://console.build02.ci.openshift.org/dashboards)
+- [openshift/release directory holding config for services on build02](https://github.com/openshift/release/tree/master/clusters/build-clusters/02_cluster)
+
+**SEE ALSO**
+
+- [api.ci](#apici)
+- [app.ci](#appci)
+- [build01](#build01)
+- [vsphere](#vsphere)
+
 ---
 
 ### vsphere
@@ -123,7 +143,23 @@ the cluster by the [applyconfig](#applyconfig) tool.
 
 ### branch-ci-openshift-release-master-build01-apply
 
+---
+
 ### ci/prow/correctly-sharded-config
+
+---
+
+### openshift-release-master-config-bootstrapper
+
+---
+
+### periodic-openshift-release-master-build01-apply
+
+---
+
+### pull-ci-openshift-release-master-build01-dry
+
+---
 
 ### openshift/ci-tools
 
@@ -158,12 +194,6 @@ or the [config-updater](#config-updater) [Prow plugin](#prow-plugins).
 **SEE ALSO**
 
 - [ci/prow/correctly-sharded-config](#ciprowcorrectly-sharded-config)
-
-### openshift-release-master-config-bootstrapper
-
-### periodic-openshift-release-master-build01-apply
-
-### pull-ci-openshift-release-master-build01-dry
 
 ### Shared step registry
 
