@@ -210,7 +210,7 @@ or the [config-updater](#config-updater) [Prow plugin](#prow-plugins).
 ### config-updater
 
 A [Prow](#prow) [plugin](#prow-plugins) that updates ConfigMaps in clusters when
-files change in a Git repository. It is used in OpenShift CI to deploy
+files change in a Git repository. OpenShift CI uses it to deploy
 configuration changes to production after they are merged to [openshift/release](#openshiftrelease).
 It is configured by glob patterns that specify which files are supposed to be
 updated in which ConfigMaps. It is triggered by a merge to a Git repository.
