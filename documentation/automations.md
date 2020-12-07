@@ -14,13 +14,16 @@
   selects random five and comments with `/retest`:
   [job](https://prow.ci.openshift.org/?job=periodic-retester) |
   [def](https://github.com/openshift/release/blob/07e7635a82665b4ffa85ab536fe08c886d76abbd/ci-operator/jobs/infra-periodics.yaml#L160-L212)
+- Every six hours, the [commenter tool](https://github.com/kubernetes/test-infra/tree/master/robots/commenter) queries
+  selected repos for PRs and issues that are rotten and did not see any activity for 30 days, and closes them via `/close`:
+  [job](https://prow.ci.openshift.org/?job=periodic-issue-close) |
+  [def](https://github.com/openshift/release/blob/ededb5ef15e3386bd82ddb5dcc327972e1059104/ci-operator/jobs/infra-periodics.yaml#L180-L224)
 - Every day, the [commenter tool](https://github.com/kubernetes/test-infra/tree/master/robots/commenter)
   queries repos for PRs that would merge if they were not blocked by referring
   to an invalid bug, and posts `/bugzilla refresh` to re-validate the linked
   bug:
    [job](https://prow.ci.openshift.org/?job=periodic-daily-bugzilla-refresh) |
    [def](https://github.com/openshift/release/blob/b4a57433e9181d135c9e22c5eca87e60fbcc2cc8/ci-operator/jobs/infra-periodics.yaml#L62-L105)
-
 
 ## Cluster Maintenance
 
