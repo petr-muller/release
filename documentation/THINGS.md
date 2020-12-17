@@ -14,6 +14,10 @@ A personal index of things.
     2. [Infrastructure Jobs](#infrastructure-jobs)
         1. [branch-ci-openshift-release-master-build01-apply](#branch-ci-openshift-release-master-build01-apply)
         2. [ci/prow/correctly-sharded-config](#ciprowcorrectly-sharded-config)
+        3. [openshift-release-master-config-bootstrapper](#openshift-release-master-config-bootstrapper)
+        4. [periodic-openshift-release-master-build01-apply](#periodic-openshift-release-master-build01-apply)
+        5. [pull-ci-openshift-release-master-build01-dry](#pull-ci-openshift-release-master-build01-dry)
+    3. [Tooling](#tooling)
 
 # OpenShift CI
 
@@ -147,6 +151,22 @@ the cluster by the [applyconfig](#applyconfig) tool.
 
 ### ci/prow/correctly-sharded-config
 
+`ci/prow/correctly-sharded-config` is a GitHub check configured on [openshift/release](#openshiftrelease)
+repository. It validates that configuration for [config-updater](#config-updater) correctly covers
+individual configuration content: that no configuration file is omitted, placed into two shards
+or into an incorrect one. The actual validation is done by the [config-shard-validator](#config-shard-validator)
+tool.
+
+**LINKS**
+
+- [Prow Job Configuration](https://github.com/openshift/release/blob/9f24c3c303c243ae2bc35027785cca3fcdae30f7/ci-operator/jobs/openshift/release/openshift-release-master-presubmits.yaml#L434-L457)
+- [Prow Job Results](https://prow.ci.openshift.org/?job=pull-ci-openshift-release-master-correctly-sharded-config)
+
+**SEE ALSO**
+
+- [config-shard-validator](#config-shard-validator)
+- [config-updater](#config-updater)
+
 ---
 
 ### openshift-release-master-config-bootstrapper
@@ -197,13 +217,17 @@ or the [config-updater](#config-updater) [Prow plugin](#prow-plugins).
 
 ### Shared step registry
 
+## Tooling
+
+### Config Shard Validator
+
 ## Software
 
 ### applyconfig
 
 ### ci-operator
 
-### co-operator configuration
+### ci-operator configuration
 
 ### config-bootstrapper
 
