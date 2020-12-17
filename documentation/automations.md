@@ -1,12 +1,16 @@
 # OpenShift CI Automation
 - _Periodically, something does something [to achieve something]_
-- Each 30m minutes, [Peribolos](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/peribolos)
+- Each 30 minutes, [Peribolos](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/peribolos)
   reconciles GitHub organization metadata, membership, teams and repositories of
   [openshift](https://github.com/openshift/) and [openshift-priv](https://github.com/openshift-priv)
   organizations:
   [job](https://prow.ci.openshift.org/?job=periodic-org-sync) |
   [def](https://github.com/openshift/release/blob/6f2025056ed9d620816a4dd31dbaa0865a645f45/ci-operator/jobs/infra-periodics.yaml#L726-L772) |
   [config](https://github.com/openshift/config)
+- Every morning at 01:00 AM, `manage-clonerefs` build is started, rebuilding the `clonerefs` image
+  consumed by `ci-operator`:
+  [def](https://github.com/openshift/release/blob/a08dee5d3fcd7b8735cb834884ac19711f22257a/ci-operator/jobs/infra-periodics.yaml#L2-L23) |
+  [BuildConfig](https://console.svc.ci.openshift.org/k8s/ns/ci/buildconfigs/manage-clonerefs)
 
 ## GitHub Automation
 - Each 12 minutes, the [commenter tool](https://github.com/kubernetes/test-infra/tree/master/robots/commenter)
