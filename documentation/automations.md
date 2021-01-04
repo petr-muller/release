@@ -22,6 +22,10 @@
   selected repos for PRs and issues that are rotten and did not see any activity for 30 days, and closes them via `/close`:
   [job](https://prow.ci.openshift.org/?job=periodic-issue-close) |
   [def](https://github.com/openshift/release/blob/ededb5ef15e3386bd82ddb5dcc327972e1059104/ci-operator/jobs/infra-periodics.yaml#L180-L224)
+- Every six hours, the [commenter tool](https://github.com/kubernetes/test-infra/tree/master/robots/commenter) queries
+  selected repos for PRs and issues that are stale and were not updated for last 30 days and marks them as rotten via `/lifecycle rotten`.:
+  [job](https://prow.ci.openshift.org/?job=periodic-issue-rotten) |
+  [def](https://github.com/openshift/release/blob/5ee2cd373314273f0be04dec82fa842c2c36c178/ci-operator/jobs/infra-periodics.yaml#L225-L273)
 - Every day, the [commenter tool](https://github.com/kubernetes/test-infra/tree/master/robots/commenter)
   queries repos for PRs that would merge if they were not blocked by referring
   to an invalid bug, and posts `/bugzilla refresh` to re-validate the linked
