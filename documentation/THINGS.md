@@ -18,6 +18,7 @@ A personal index of things.
         4. [periodic-openshift-release-master-build01-apply](#periodic-openshift-release-master-build01-apply)
         5. [pull-ci-openshift-release-master-build01-dry](#pull-ci-openshift-release-master-build01-dry)
     3. [Tooling](#tooling)
+    4. [Organization](#organization)
 
 # OpenShift CI
 
@@ -183,8 +184,6 @@ tool.
 
 ### openshift/ci-tools
 
-### DPTP
-
 ### Integration Imagestreams
 
 ### openshift/release
@@ -270,7 +269,11 @@ An example bot comment informing that ConfigMaps were updated after a merge.
 
 ### Deck
 
+### DPTP Bot
+
 ### Hook
+
+### kubernetes/test-infra
 
 ### Prow
 
@@ -310,3 +313,26 @@ information about plugins enabled for repos in that specific Prow instance.
 ### Prow Plugins
 
 WAT
+
+## Organization
+
+### DPP
+
+### DPTP
+
+DPTP (Developer Productivity: Test Platform) is a team responsible for development
+and operation of the[OpenShift CI](#openshift-ci)  system. The team is a part of
+the G Pillar of the OpenShift organization. Its team leader is Steve Kuznetsov
+and its manager is Vikas Laad. The team can be contacted by pinging
+`@dptp-helpdesk` on `#forum-testplatform` Slack channel. The team mostly works
+in the [openshift/release](#openshiftrelease), [openshift/ci-tools](#openshiftci-tools)
+and also the upstream [kubernetes/test-infra](#kubernetestest-infra) repositories.
+People can add cards to DPTP backlog by pinging [DPTP Bot](#dptp-bot) on Slack.
+
+**LINKS**
+
+[DPTP Backlog](https://issues.redhat.com/secure/RapidBoard.jspa?rapidView=5280&view=planning)
+
+**SEE ALSO**
+
+- [DPP](https://www.notion.so/DPP-4956d585c55744f585a4874daba8008c)
