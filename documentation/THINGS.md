@@ -182,6 +182,23 @@ tool.
 
 ---
 
+### pull-ci-openshift-release-master-core-dry
+
+### pull-ci-openshift-release-master-build02-dry
+### pull-ci-openshift-release-master-services-dry
+### pull-ci-openshift-release-master-vsphere-dry
+### pull-ci-openshift-release-master-app-ci-config-dry
+### periodic-openshift-release-master-services-apply
+### periodic-openshift-release-master-core-apply
+### periodic-openshift-release-master-build02-apply
+###  periodic-openshift-release-master-vsphere-apply
+### periodic-openshift-release-master-app-ci-apply
+### branch-ci-openshift-release-master-build02-apply
+### branch-ci-openshift-release-master-core-apply
+### branch-ci-openshift-release-master-services-apply
+### branch-ci-openshift-release-master-app-ci-apply
+### branch-ci-openshift-release-master-vsphere-apply
+
 ### openshift/ci-tools
 
 ### Integration Imagestreams
@@ -223,6 +240,39 @@ or the [config-updater](#config-updater) [Prow plugin](#prow-plugins).
 ## Software
 
 ### applyconfig
+
+`applyconfig` is the custom tool written in Go by DPTP for GitOps control over all
+[OpenShift CI](#openshift-ci) clusters. It runs in postsubmit jobs that run after
+merges to [openshift/release](#openshiftrelease). The tool applies all manifests
+under a directory hierarchy to a cluster using `oc apply`. It has basic capabilities
+for specifying target clusters and credentials, and is able to execute all
+operations in a "dry" mode. This mode is used in validation presubmits on
+[openshift/release](#openshiftrelease).
+
+**LINKS**
+
+- [`applyconfig` source code in openshift/ci-tools](https://github.com/openshift/ci-tools/tree/master/cmd/applyconfig)
+
+**SEE ALSO**
+
+- [pull-ci-openshift-release-master-core-dry](#pull-ci-openshift-release-master-core-dry)
+- [pull-ci-openshift-release-master-build01-dry](#pull-ci-openshift-release-master-build01-dry)
+- [pull-ci-openshift-release-master-build02-dry](#periodic-openshift-release-master-build02-apply)
+- [pull-ci-openshift-release-master-services-dry](#pull-ci-openshift-release-master-services-dry)
+- [pull-ci-openshift-release-master-vsphere-dry](#pull-ci-openshift-release-master-vsphere-dry)
+- [pull-ci-openshift-release-master-app-ci-config-dry](#pull-ci-openshift-release-master-app-ci-config-dry)
+- [periodic-openshift-release-master-services-apply](#periodic-openshift-release-master-services-apply)
+- [periodic-openshift-release-master-core-apply](#periodic-openshift-release-master-core-apply)
+- [periodic-openshift-release-master-build02-apply](#periodic-openshift-release-master-build02-apply)
+- [periodic-openshift-release-master-vsphere-apply](#periodic-openshift-release-master-app-ci-apply)
+- [periodic-openshift-release-master-app-ci-apply](#periodic-openshift-release-master-app-ci-apply)
+- [periodic-openshift-release-master-build01-apply](#periodic-openshift-release-master-build01-apply)
+- [branch-ci-openshift-release-master-build02-apply](#branch-ci-openshift-release-master-build02-apply)
+- [branch-ci-openshift-release-master-build01-apply](#branch-ci-openshift-release-master-build01-apply)
+- [branch-ci-openshift-release-master-core-apply](#branch-ci-openshift-release-master-core-apply)
+- [branch-ci-openshift-release-master-services-apply](#branch-ci-openshift-release-master-services-apply)
+- [branch-ci-openshift-release-master-app-ci-apply](#branch-ci-openshift-release-master-app-ci-apply)
+- [branch-ci-openshift-release-master-vsphere-apply](#branch-ci-openshift-release-master-vsphere-apply)
 
 ### ci-operator
 
