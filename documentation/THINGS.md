@@ -276,6 +276,27 @@ operations in a "dry" mode. This mode is used in validation presubmits on
 
 ### ci-operator
 
+### ci-operator-configresolver
+
+# ci-operator-configresolver
+
+The `ci-operator-configresolver` is a server program that consumes a body of all [ci-operator](#ci-operator)
+config files from the [openshift/release](#openshiftrelease) repository and all content of the
+[Shared step registry](#shared-step-registry). It resolves references to step registry elements
+in ci-operator configs into fully resolved, literal steps, and serves them to client instances of
+`ci-operator` to execute. It has a UI that serves as a directory of registry content for users.
+The tool is written in Go and it is developed and maintained by the [DPTP](#dptp) team.
+
+**LINKS**
+
+- [step registry UI (`ci-operator-configresolver` frontend)](https://steps.ci.openshift.org/)
+- [Source code of `ci-operator-configresolver` in openshift/ci-tools repository](https://github.com/openshift/ci-tools/tree/master/cmd/ci-operator-configresolver)
+
+**SEE ALSO**
+
+- [ci-operator](#ci-operator)
+- [Shared step registry](#shared-step-registry)
+
 ### ci-operator configuration
 
 ### config-bootstrapper
