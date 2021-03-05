@@ -11,6 +11,10 @@
   consumed by `ci-operator`:
   [def](https://github.com/openshift/release/blob/a08dee5d3fcd7b8735cb834884ac19711f22257a/ci-operator/jobs/infra-periodics.yaml#L2-L23) |
   [BuildConfig](https://console.svc.ci.openshift.org/k8s/ns/ci/buildconfigs/manage-clonerefs)
+- Every year, [serviceaccount-secret-rotation-trigger](https://github.com/openshift/ci-tools/tree/master/cmd/serviceaccount-secret-rotation-trigger) tool rotates
+  all service account secrets in selected namespaces on selected clusters:
+  [job](https://prow.ci.openshift.org/?job=periodic-rotate-serviceaccount-secrets) |
+  [def](https://github.com/openshift/release/blob/c4b9a832c992b4d456b8ab3408cb340d2f7242c5/ci-operator/jobs/infra-periodics.yaml#L84-L125)
 
 ## GitHub Automation
 - Each 12 minutes, the [commenter tool](https://github.com/kubernetes/test-infra/tree/master/robots/commenter)
