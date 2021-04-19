@@ -172,6 +172,28 @@ tool.
 
 ### openshift-release-master-config-bootstrapper
 
+`openshift-release-master-config-bootstrapper` is a hourly periodic job that runs
+the [config-bootstrapper](#config-bootstrapper) tool over the config in
+[openshift/release](#openshiftrelease) to commit the content of the repository
+into the ConfigMaps on the clusters. Its purpose is to serve as a reconciliation
+backstop for cases when the [branch-ci-openshift-release-master-config-updates](#branch-ci-openshift-release-master-config-updates)
+job fails or when config is mistakenly edited on the cluster.
+
+**LINKS**
+
+- [Results](https://prow.ci.openshift.org/?job=branch-ci-openshift-release-master-config-updates)
+- [openshift/release](Configuration)
+
+**SEE ALSO**
+
+- [config-updater](#config-updater)
+- [config-bootstrapper](#config-bootstrapper)
+- [branch-ci-openshift-release-master-config-updates](#branch-ci-openshift-release-master-config-updates)
+
+---
+
+### branch-ci-openshift-release-master-config-updates
+
 ---
 
 ### periodic-openshift-release-master-build01-apply
