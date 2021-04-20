@@ -40,6 +40,11 @@
   bug:
    [job](https://prow.ci.openshift.org/?job=periodic-daily-bugzilla-refresh) |
    [def](https://github.com/openshift/release/blob/b4a57433e9181d135c9e22c5eca87e60fbcc2cc8/ci-operator/jobs/infra-periodics.yaml#L62-L105)
+- Every day, the [label_sync tool](https://github.com/kubernetes/test-infra/tree/master/label_sync)
+  reconciles the labels configured on GitHub repos:
+  [job](https://prow.ci.openshift.org/?job=periodic-label-sync) |
+  [def](https://github.com/openshift/release/blob/5404db8ab9780d55b46117365f3d068c0a4d376e/ci-operator/jobs/infra-periodics.yaml#L343-L383) |
+  [config](https://github.com/openshift/release/blob/master/core-services/prow/02_config/_labels.yaml)
 
 ## Cluster Maintenance
 
