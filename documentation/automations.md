@@ -15,6 +15,11 @@
   all service account secrets in selected namespaces on selected clusters:
   [job](https://prow.ci.openshift.org/?job=periodic-rotate-serviceaccount-secrets) |
   [def](https://github.com/openshift/release/blob/c4b9a832c992b4d456b8ab3408cb340d2f7242c5/ci-operator/jobs/infra-periodics.yaml#L84-L125)
+- Every 5 minutes, the leaked clusters in AWS are deprovisioned using the installer to
+  clean up space in CI accounts:
+  [job](https://prow.ci.openshift.org/?job=periodic-ipi-deprovision-aws) |
+  [def](https://github.com/openshift/release/blob/3a0e9927bc94240efcffaa617184c52c33d212d3/ci-operator/jobs/infra-periodics.yaml#L406-L458) |
+  [script](https://github.com/openshift/release/blob/master/core-services/ipi-deprovision/aws.sh)
 
 ## GitHub Automation
 - Each 12 minutes, the [commenter tool](https://github.com/kubernetes/test-infra/tree/master/robots/commenter)
