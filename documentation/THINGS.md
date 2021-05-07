@@ -263,7 +263,34 @@ either the [applyconfig](#applyconfig) tool or the [config-updater](#config-upda
 
 - [ci/prow/correctly-sharded-config](#ciprowcorrectly-sharded-config)
 
+---
+
 ### Shared step registry
+
+Shared test registry is the repository for the multi-stage test resources (steps, chains and workflows) so that they can
+be reused and shared between jobs, repositories and teams. Their definitions live in `ci-operator/step-registry`
+directory in [openshift/release](#openshiftrelease). The resources are served
+by [ci-operator-configresolver](#ci-operator-configresolver)
+directly to [ci-operator](#ci-operator) at runtime.
+
+**LINKS**
+
+- [Step registry content](https://github.com/openshift/release/tree/master/ci-operator/step-registry)
+- [Step registry and multi-stage test documentation](https://docs.ci.openshift.org/docs/architecture/step-registry/)
+
+**SEE ALSO**
+
+- [step (multi-stage)](#step-multi-stage)
+- [chain (multi-stage)](#chain-multi-stage)
+- [workflow (multi-stage)](#workflow-multi-stage)
+
+---
+
+### step (multi-stage)
+
+### chain (multi-stage)
+
+### workflow (multi-stage)
 
 ## Tooling
 
