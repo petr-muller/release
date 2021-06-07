@@ -334,9 +334,25 @@ operations in a "dry" mode. This mode is used in validation presubmits on
 
 ### ci-operator
 
-### ci-operator-configresolver
+`ci-operator` is a highly opinionated test workflow execution engine that knows how OpenShift is built,
+released and installed. It is the main entry point to most [OpenShift CI](#openshift-ci) jobs. Its main
+input is a YAML config file that describes how the individual repository branch can be built and tested.
+It builds images using OpenShift `Builds` and runs tests in kubernetes `Pods`, using a temporary namespace
+that is shared between jobs running with identical inputs. `ci-operator` is developed and maintained
+by [DPTP](#dptp), written in Go, and its sources are in [openshift/ci-tools](#openshiftci-tools) repository.
 
-# ci-operator-configresolver
+**LINKS**
+
+1. [`ci-operator` documentation](https://docs.ci.openshift.org/docs/architecture/ci-operator/)
+2. [`ci-operator` sources](https://github.com/openshift/ci-tools/tree/master/cmd/ci-operator)
+
+**SEE ALSO**
+
+1. [ci-operator-configresolver](#ci-operator-configresolver)
+2. [ci-operator-prowgen](#ci-operator-prowgen)
+
+
+### ci-operator-configresolver
 
 The `ci-operator-configresolver` is a server program that consumes a body of all [ci-operator](#ci-operator)
 config files from the [openshift/release](#openshiftrelease) repository and all content of the
@@ -354,6 +370,8 @@ Go and it is developed and maintained by the [DPTP](#dptp) team.
 
 - [ci-operator](#ci-operator)
 - [Shared step registry](#shared-step-registry)
+
+### ci-operator-prowgen
 
 ### ci-operator configuration
 
