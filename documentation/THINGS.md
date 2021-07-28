@@ -334,12 +334,12 @@ operations in a "dry" mode. This mode is used in validation presubmits on
 
 ### ci-operator
 
-`ci-operator` is a highly opinionated test workflow execution engine that knows how OpenShift is built,
-released and installed. It is the main entry point to most [OpenShift CI](#openshift-ci) jobs. Its main
-input is a YAML config file that describes how the individual repository branch can be built and tested.
-It builds images using OpenShift `Builds` and runs tests in kubernetes `Pods`, using a temporary namespace
-that is shared between jobs running with identical inputs. `ci-operator` is developed and maintained
-by [DPTP](#dptp), written in Go, and its sources are in [openshift/ci-tools](#openshiftci-tools) repository.
+`ci-operator` is a highly opinionated test workflow execution engine that knows how OpenShift is built, released and
+installed. It is the main entry point to most [OpenShift CI](#openshift-ci) jobs. Its main input is a YAML config file
+that describes how the individual repository branch can be built and tested. It builds images using OpenShift `Builds`
+and runs tests in kubernetes `Pods`, using a temporary namespace that is shared between jobs running with identical
+inputs. `ci-operator` is developed and maintained by [DPTP](#dptp), written in Go, and its sources are
+in [openshift/ci-tools](#openshiftci-tools) repository.
 
 **LINKS**
 
@@ -350,7 +350,6 @@ by [DPTP](#dptp), written in Go, and its sources are in [openshift/ci-tools](#op
 
 1. [ci-operator-configresolver](#ci-operator-configresolver)
 2. [ci-operator-prowgen](#ci-operator-prowgen)
-
 
 ### ci-operator-configresolver
 
@@ -373,7 +372,33 @@ Go and it is developed and maintained by the [DPTP](#dptp) team.
 
 ### ci-operator-prowgen
 
+### ci-operator-checkconfig
+
+---
+
 ### ci-operator configuration
+
+`ci-operator` configuration are YAML files that describe how to build and test an individual repository branch. Most
+importantly, they specify which images should be built from the repo, and which tests (mapping to individual CI jobs)
+can be performed. The configuration files from the repository are consumed
+by [ci-operator-configresolver](#ci-operator-configresolver)
+which resolves the [shared step registry](#shared-step-registry) references in them, and serves them
+to [ci-operator](#ci-operator)
+during execution. The configuration files live in [openshift/release](#openshiftrelease) repository. Changes to them are
+validated by [ci-operator-checkconfig](#ci-operator-checkconfig) and they trigger [rehearsals](#rehearsals) of jobs that
+use them.
+
+**LINKS**
+
+- [CI Operator documentation](https://docs.ci.openshift.org/docs/architecture/ci-operator/)
+
+**SEE ALSO**
+
+- [ci-operator-checkconfig](#ci-operator-checkconfig)
+- [ci-operator-configresolver](#ci-operator-configresolver)
+- [ci-operator](#ci-operator)
+
+---
 
 ### config-bootstrapper
 
@@ -456,6 +481,8 @@ about plugins enabled for repos in that specific Prow instance.
 ### Prow Job Configuration
 
 ### Prow Plugins
+
+### Rehearsals
 
 WAT
 
