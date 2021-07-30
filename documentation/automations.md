@@ -51,6 +51,12 @@
   [def](https://github.com/openshift/release/blob/5404db8ab9780d55b46117365f3d068c0a4d376e/ci-operator/jobs/infra-periodics.yaml#L343-L383) |
   [config](https://github.com/openshift/release/blob/master/core-services/prow/02_config/_labels.yaml)
 
+## DPTP Automation
+- Every day in the morning, the [sprint-automation tool](https://github.com/openshift/ci-tools/tree/master/cmd/sprint-automation)
+  sets DPTP group role membership based on Pager Duty data, sends JIRA digest to DPTP Intake and posts board summary to Slack:
+  [job](https://prow.ci.openshift.org/?job=periodic-sprint-automation) |
+  [def](https://github.com/openshift/release/blob/bb090e619eabadf93d3ba56fccf100aa784d3f5a/ci-operator/jobs/infra-periodics.yaml#L46-L89)
+
 ## Cluster Maintenance
 
 - Every day, `build01` cluster is upgraded to the most recent version via
