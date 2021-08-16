@@ -20,6 +20,12 @@
   [job](https://prow.ci.openshift.org/?job=periodic-ipi-deprovision-aws) |
   [def](https://github.com/openshift/release/blob/3a0e9927bc94240efcffaa617184c52c33d212d3/ci-operator/jobs/infra-periodics.yaml#L406-L458) |
   [script](https://github.com/openshift/release/blob/master/core-services/ipi-deprovision/aws.sh)
+- Every 5 minutes, the leaked clusters in AWS-2 account are deprovisioned using the installer to
+  clean up space in CI accounts:
+  [job](https://prow.ci.openshift.org/?job=periodic-ipi-deprovision-aws-2) |
+  [def](https://github.com/openshift/release/blob/5e67036719ab4509e87f83ed6ab5ae5a0ded551a/ci-operator/jobs/infra-periodics.yaml#L488-L539) |
+  [script](https://github.com/openshift/release/blob/master/core-services/ipi-deprovision/aws.sh)
+
 
 ## GitHub Automation
 - Each 12 minutes, the [commenter tool](https://github.com/kubernetes/test-infra/tree/master/robots/commenter)
