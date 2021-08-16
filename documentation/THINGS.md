@@ -402,6 +402,23 @@ use them.
 
 ### config-bootstrapper
 
+`config-bootstrapper` is an auxiliary tool to the [config-updater](#config-updater) Prow plugin, used to one-time
+populate a configuration in the cluster that would normally be incrementally updated by the plugin. The tool was
+intended to bootstrap the configuration in the cluster e.g. during a recovery or migration, but in the context of
+[OpenShift CI](#openshift-ci), it is also used in infrastructure periodics to reconcile the configuration in the cluster
+to the desired state when it goes out of sync for some reason. Same as [config-updater](#config-updater), the tool
+supports execution against multiple clusters.
+
+**LINKS**
+
+- [source code](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/config-bootstrapper)
+
+**SEE ALSO**
+
+- [openshift-release-master-config-bootstrapper](#openshift-release-master-config-bootstrapper)
+
+---
+
 ### config-updater
 
 A [Prow](#prow) [plugin](#prow-plugins) that updates ConfigMaps in clusters when files change in a Git repository.
