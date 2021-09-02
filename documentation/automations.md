@@ -1,48 +1,57 @@
 # OpenShift CI Automation
+
 - _Periodically, something does something [to achieve something]_
 - Each 30 minutes, [Peribolos](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/peribolos)
   reconciles GitHub organization metadata, membership, teams and repositories of
   [openshift](https://github.com/openshift/) and [openshift-priv](https://github.com/openshift-priv)
   organizations:
   [job](https://prow.ci.openshift.org/?job=periodic-org-sync) |
-  [def](https://github.com/openshift/release/blob/6f2025056ed9d620816a4dd31dbaa0865a645f45/ci-operator/jobs/infra-periodics.yaml#L726-L772) |
+  [def](https://github.com/openshift/release/blob/6f2025056ed9d620816a4dd31dbaa0865a645f45/ci-operator/jobs/infra-periodics.yaml#L726-L772)
+  |
   [config](https://github.com/openshift/config)
-- Every morning at 01:00 AM, `manage-clonerefs` build is started, rebuilding the `clonerefs` image
-  consumed by `ci-operator`:
-  [def](https://github.com/openshift/release/blob/a08dee5d3fcd7b8735cb834884ac19711f22257a/ci-operator/jobs/infra-periodics.yaml#L2-L23) |
+- Every morning at 01:00 AM, `manage-clonerefs` build is started, rebuilding the `clonerefs` image consumed
+  by `ci-operator`:
+  [def](https://github.com/openshift/release/blob/a08dee5d3fcd7b8735cb834884ac19711f22257a/ci-operator/jobs/infra-periodics.yaml#L2-L23)
+  |
   [BuildConfig](https://console.svc.ci.openshift.org/k8s/ns/ci/buildconfigs/manage-clonerefs)
-- Every year, [serviceaccount-secret-rotation-trigger](https://github.com/openshift/ci-tools/tree/master/cmd/serviceaccount-secret-rotation-trigger) tool rotates
-  all service account secrets in selected namespaces on selected clusters:
+- Every
+  year, [serviceaccount-secret-rotation-trigger](https://github.com/openshift/ci-tools/tree/master/cmd/serviceaccount-secret-rotation-trigger)
+  tool rotates all service account secrets in selected namespaces on selected clusters:
   [job](https://prow.ci.openshift.org/?job=periodic-rotate-serviceaccount-secrets) |
   [def](https://github.com/openshift/release/blob/c4b9a832c992b4d456b8ab3408cb340d2f7242c5/ci-operator/jobs/infra-periodics.yaml#L84-L125)
-- Every 5 minutes, the leaked clusters in AWS are deprovisioned using the installer to
-  clean up space in CI accounts:
+- Every 5 minutes, the leaked clusters in AWS are deprovisioned using the installer to clean up space in CI accounts:
   [job](https://prow.ci.openshift.org/?job=periodic-ipi-deprovision-aws) |
-  [def](https://github.com/openshift/release/blob/3a0e9927bc94240efcffaa617184c52c33d212d3/ci-operator/jobs/infra-periodics.yaml#L406-L458) |
+  [def](https://github.com/openshift/release/blob/3a0e9927bc94240efcffaa617184c52c33d212d3/ci-operator/jobs/infra-periodics.yaml#L406-L458)
+  |
   [script](https://github.com/openshift/release/blob/master/core-services/ipi-deprovision/aws.sh)
-- Every 5 minutes, the leaked clusters in AWS-2 account are deprovisioned using the installer to
-  clean up space in CI accounts:
+- Every 5 minutes, the leaked clusters in AWS-2 account are deprovisioned using the installer to clean up space in CI
+  accounts:
   [job](https://prow.ci.openshift.org/?job=periodic-ipi-deprovision-aws-2) |
-  [def](https://github.com/openshift/release/blob/5e67036719ab4509e87f83ed6ab5ae5a0ded551a/ci-operator/jobs/infra-periodics.yaml#L488-L539) |
+  [def](https://github.com/openshift/release/blob/5e67036719ab4509e87f83ed6ab5ae5a0ded551a/ci-operator/jobs/infra-periodics.yaml#L488-L539)
+  |
   [script](https://github.com/openshift/release/blob/master/core-services/ipi-deprovision/aws.sh)
-- Every 5 minutes, the leaked clusters in GCP account are deprovisioned using the installer to
-  clean up space in CI accounts:
+- Every 5 minutes, the leaked clusters in GCP account are deprovisioned using the installer to clean up space in CI
+  accounts:
   [job](https://prow.ci.openshift.org/?job=periodic-ipi-deprovision-gcp) |
-  [def](https://github.com/openshift/release/blob/574f6781869770d757aa14b8040c46553ee15e82/ci-operator/jobs/infra-periodics.yaml#L532-L586) |
+  [def](https://github.com/openshift/release/blob/574f6781869770d757aa14b8040c46553ee15e82/ci-operator/jobs/infra-periodics.yaml#L532-L586)
+  |
   [script](https://github.com/openshift/release/blob/master/core-services/ipi-deprovision/gcp.sh)
 
 ## GitHub Automation
+
 - Each 12 minutes, the [commenter tool](https://github.com/kubernetes/test-infra/tree/master/robots/commenter)
-  queries selected repos for PRs that are reviewed and approved but fail tests,
-  selects random five and comments with `/retest`:
+  queries selected repos for PRs that are reviewed and approved but fail tests, selects random five and comments
+  with `/retest`:
   [job](https://prow.ci.openshift.org/?job=periodic-retester) |
   [def](https://github.com/openshift/release/blob/07e7635a82665b4ffa85ab536fe08c886d76abbd/ci-operator/jobs/infra-periodics.yaml#L160-L212)
 - Every six hours, the [commenter tool](https://github.com/kubernetes/test-infra/tree/master/robots/commenter) queries
-  selected repos for PRs and issues that are rotten and did not see any activity for 30 days, and closes them via `/close`:
+  selected repos for PRs and issues that are rotten and did not see any activity for 30 days, and closes them
+  via `/close`:
   [job](https://prow.ci.openshift.org/?job=periodic-issue-close) |
   [def](https://github.com/openshift/release/blob/ededb5ef15e3386bd82ddb5dcc327972e1059104/ci-operator/jobs/infra-periodics.yaml#L180-L224)
 - Every six hours, the [commenter tool](https://github.com/kubernetes/test-infra/tree/master/robots/commenter) queries
-  selected repos for PRs and issues that are stale and were not updated for last 30 days and marks them as rotten via `/lifecycle rotten`.:
+  selected repos for PRs and issues that are stale and were not updated for last 30 days and marks them as rotten
+  via `/lifecycle rotten`.:
   [job](https://prow.ci.openshift.org/?job=periodic-issue-rotten) |
   [def](https://github.com/openshift/release/blob/5ee2cd373314273f0be04dec82fa842c2c36c178/ci-operator/jobs/infra-periodics.yaml#L225-L273)
 - Every six hours, the [commenter tool](https://github.com/kubernetes/test-infra/tree/master/robots/commenter) queries
@@ -50,20 +59,23 @@
   [job](https://prow.ci.openshift.org/?job=periodic-issue-stale) |
   [def](https://github.com/openshift/release/blob/afaf4efc3c7db204bd567787d8fec0e81f64be1e/ci-operator/jobs/infra-periodics.yaml#L252-L299)
 - Every day, the [commenter tool](https://github.com/kubernetes/test-infra/tree/master/robots/commenter)
-  queries repos for PRs that would merge if they were not blocked by referring
-  to an invalid bug, and posts `/bugzilla refresh` to re-validate the linked
-  bug:
-   [job](https://prow.ci.openshift.org/?job=periodic-daily-bugzilla-refresh) |
-   [def](https://github.com/openshift/release/blob/b4a57433e9181d135c9e22c5eca87e60fbcc2cc8/ci-operator/jobs/infra-periodics.yaml#L62-L105)
+  queries repos for PRs that would merge if they were not blocked by referring to an invalid bug, and
+  posts `/bugzilla refresh` to re-validate the linked bug:
+  [job](https://prow.ci.openshift.org/?job=periodic-daily-bugzilla-refresh) |
+  [def](https://github.com/openshift/release/blob/b4a57433e9181d135c9e22c5eca87e60fbcc2cc8/ci-operator/jobs/infra-periodics.yaml#L62-L105)
 - Every day, the [label_sync tool](https://github.com/kubernetes/test-infra/tree/master/label_sync)
   reconciles the labels configured on GitHub repos:
   [job](https://prow.ci.openshift.org/?job=periodic-label-sync) |
-  [def](https://github.com/openshift/release/blob/5404db8ab9780d55b46117365f3d068c0a4d376e/ci-operator/jobs/infra-periodics.yaml#L343-L383) |
+  [def](https://github.com/openshift/release/blob/5404db8ab9780d55b46117365f3d068c0a4d376e/ci-operator/jobs/infra-periodics.yaml#L343-L383)
+  |
   [config](https://github.com/openshift/release/blob/master/core-services/prow/02_config/_labels.yaml)
 
 ## DPTP Automation
-- Every day in the morning, the [sprint-automation tool](https://github.com/openshift/ci-tools/tree/master/cmd/sprint-automation)
-  sets DPTP group role membership based on Pager Duty data, sends JIRA digest to DPTP Intake and posts board summary to Slack:
+
+- Every day in the morning,
+  the [sprint-automation tool](https://github.com/openshift/ci-tools/tree/master/cmd/sprint-automation)
+  sets DPTP group role membership based on Pager Duty data, sends JIRA digest to DPTP Intake and posts board summary to
+  Slack:
   [job](https://prow.ci.openshift.org/?job=periodic-sprint-automation) |
   [def](https://github.com/openshift/release/blob/bb090e619eabadf93d3ba56fccf100aa784d3f5a/ci-operator/jobs/infra-periodics.yaml#L46-L89)
 
@@ -71,5 +83,5 @@
 
 - Every day, `build01` cluster is upgraded to the most recent version via
   `oc adm upgrade --to-latest`:
-   [job](https://prow.ci.openshift.org/?job=periodic-build01-upgrade) |
-   [definition](https://github.com/openshift/release/blob/master/ci-operator/jobs/infra-periodics.yaml#L2-L23)
+  [job](https://prow.ci.openshift.org/?job=periodic-build01-upgrade) |
+  [definition](https://github.com/openshift/release/blob/master/ci-operator/jobs/infra-periodics.yaml#L2-L23)
