@@ -453,7 +453,28 @@ An example bot comment informing that ConfigMaps were updated after a merge.
 - [config-bootstrapper](#config-bootstrapper)
 - [openshift-release-master-config-bootstrapper](#openshift-release-master-config-bootstrapper)
 
+---
+
 ### Deck
+
+Deck is a [Prow](#prow)  frontend component. It serves several dashboards and views on the current state of the Prow
+system. Its main view is the listing of [ProwJob](#prow-job) instances in the system. It provides two views into the
+state of [Tide](#tide): history and current status of the merge queue. It also serves help. Prow's log
+viewer, [Spyglass](#spyglass) is quite tightly coupled to Deck, too.
+
+**LINKS**
+
+- [OpenShift CI Deck instance](https://prow.ci.openshift.org/)
+- [Tide Dashboard in OpenShift CI](https://prow.ci.openshift.org/tide)
+- [Tide History Dashboard in OpenShift CI](https://prow.ci.openshift.org/tide-history)
+- [Kubernetes Deck Instance](https://prow.k8s.io/)
+- [Deck source code in kubernetes/test-infra](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/deck)
+
+**SEE ALSO**
+
+- [Spyglass](#spyglass)
+
+---
 
 ### DPTP Bot
 
@@ -474,6 +495,10 @@ CI instance runs on the
 [upstream](https://github.com/kubernetes/test-infra/tree/master/prow)
 | [Deck frontend to OpenShift CI instance of Prow](https://prow.svc.ci.openshift.org/)
 
+### Prow Job
+
+### Prow Job Configuration
+
 ### Prow Plugins
 
 Prow Plugins are sub-component of [Hook](#hook) that consume GitHub webhooks related to their function and can be
@@ -493,15 +518,13 @@ about plugins enabled for repos in that specific Prow instance.
 
 - [Prow](#prow)
 
-### Prow
-
-### Prow Job Configuration
-
-### Prow Plugins
-
 ### Rehearsals
 
 WAT
+
+### Spyglass
+
+### Tide
 
 ## Organization
 
