@@ -1,6 +1,6 @@
-# OpenShift CI Automation
-
 - _Periodically, something does something [to achieve something]_
+
+## OpenShift CI Automation
 - Each 30 minutes, [Peribolos](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/peribolos)
   reconciles GitHub organization metadata, membership, teams and repositories of
   [openshift](https://github.com/openshift/) and [openshift-priv](https://github.com/openshift-priv)
@@ -34,6 +34,12 @@
   accounts:
   [job](https://prow.ci.openshift.org/?job=periodic-ipi-deprovision-gcp) |
   [def](https://github.com/openshift/release/blob/574f6781869770d757aa14b8040c46553ee15e82/ci-operator/jobs/infra-periodics.yaml#L532-L586)
+  |
+  [script](https://github.com/openshift/release/blob/master/core-services/ipi-deprovision/gcp.sh)
+- Every 5 minutes, the leaked clusters in GCP-2 account are deprovisioned using the installer to clean up space in CI
+  accounts:
+  [job](https://prow.ci.openshift.org/?job=periodic-ipi-deprovision-gcp-2) |
+  [def](https://github.com/openshift/release/blob/7037b74f4690d4f6337bc878f1ecc198a2dca136/ci-operator/jobs/infra-periodics.yaml#L729-L783)
   |
   [script](https://github.com/openshift/release/blob/master/core-services/ipi-deprovision/gcp.sh)
 
