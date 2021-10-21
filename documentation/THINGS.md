@@ -478,9 +478,27 @@ viewer, [Spyglass](#spyglass) is quite tightly coupled to Deck, too.
 
 ### DPTP Bot
 
+---
+
 ### Hook
 
+Hook is a [Prow](#prow) component that receives webhooks incoming from GitHub. Individual events are multiplexed to two
+types of plugins: internal that are compiled directly into Hook, and external which are standalone binaries.
+
+**LINKS**
+
+- [Source code for Hook](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/hook)
+
+**SEE ALSO**
+
+- [needs-rebase](#needs-rebase)
+- [prow plugins](#prow-plugins)
+
+---
+
 ### kubernetes/test-infra
+
+### needs-rebase
 
 ### Prow
 
