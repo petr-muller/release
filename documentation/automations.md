@@ -1,6 +1,7 @@
 - _Periodically, something does something [to achieve something]_
 
 ## OpenShift CI Automation
+
 - Each 30 minutes, [Peribolos](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/peribolos)
   reconciles GitHub organization metadata, membership, teams and repositories of
   [openshift](https://github.com/openshift/) and [openshift-priv](https://github.com/openshift-priv)
@@ -42,6 +43,10 @@
   [def](https://github.com/openshift/release/blob/7037b74f4690d4f6337bc878f1ecc198a2dca136/ci-operator/jobs/infra-periodics.yaml#L729-L783)
   |
   [script](https://github.com/openshift/release/blob/master/core-services/ipi-deprovision/gcp.sh)
+- Every 12 hours, the version of the Prow images running in OpenShift CI is bumped
+  by [generic-autobumper](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/generic-autobumper) tool:
+  [job](https://prow.ci.openshift.org/?job=periodic-prow-image-autobump) |
+  [def](https://github.com/openshift/release/blob/87bb4f2e31c58e82e9901ce398dc8151680c2133/ci-operator/jobs/infra-periodics.yaml#L784-L814)
 
 ## GitHub Automation
 
