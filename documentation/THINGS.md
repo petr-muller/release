@@ -515,7 +515,26 @@ CI instance runs on the
 
 ### Prow Job
 
+---
+
 ### Prow Job Configuration
+
+Prow Job Configuration is an immense heap of YAML that describe individual jobs configured for repos involved
+in [OpenShift CI](#openshift-ci). The configuration lives in [openshift/release](#openshiftrelease) repository. In
+OpenShift CI, the Prow job configuration is mostly automatically generated/derived from [ci-operator](#ci-operator)
+configuration by [ci-operator-prowgen](#ci-operator-prowgen), and hand-writing jobs is discouraged. The exact YAML form
+of the configuration is managed by the [sanitize-prow-jobs](#sanitize-prow-jobs) tool.
+
+**LINKS**
+
+- [Location of job configuration](https://github.com/openshift/release/tree/master/ci-operator/jobs)
+
+**SEE ALSO**
+
+- [sanitize-prow-jobs](#sanitize-prow-jobs)
+- [ci-operator-prowgen](#ci-operator-prowgen)
+
+---
 
 ### Prow Plugins
 
@@ -539,6 +558,8 @@ about plugins enabled for repos in that specific Prow instance.
 ### Rehearsals
 
 WAT
+
+### sanitize-prow-jobs
 
 ### Spyglass
 
