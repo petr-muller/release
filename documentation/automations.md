@@ -10,43 +10,67 @@
   [def](https://github.com/openshift/release/blob/6f2025056ed9d620816a4dd31dbaa0865a645f45/ci-operator/jobs/infra-periodics.yaml#L726-L772)
   |
   [config](https://github.com/openshift/config)
+
 - Every morning at 01:00 AM, `manage-clonerefs` build is started, rebuilding the `clonerefs` image consumed
   by `ci-operator`:
   [def](https://github.com/openshift/release/blob/a08dee5d3fcd7b8735cb834884ac19711f22257a/ci-operator/jobs/infra-periodics.yaml#L2-L23)
   |
   [BuildConfig](https://console.svc.ci.openshift.org/k8s/ns/ci/buildconfigs/manage-clonerefs)
+
 - Every
   year, [serviceaccount-secret-rotation-trigger](https://github.com/openshift/ci-tools/tree/master/cmd/serviceaccount-secret-rotation-trigger)
   tool rotates all service account secrets in selected namespaces on selected clusters:
   [job](https://prow.ci.openshift.org/?job=periodic-rotate-serviceaccount-secrets) |
   [def](https://github.com/openshift/release/blob/c4b9a832c992b4d456b8ab3408cb340d2f7242c5/ci-operator/jobs/infra-periodics.yaml#L84-L125)
+
 - Every 5 minutes, the leaked clusters in AWS are deprovisioned using the installer to clean up space in CI accounts:
   [job](https://prow.ci.openshift.org/?job=periodic-ipi-deprovision-aws) |
   [def](https://github.com/openshift/release/blob/3a0e9927bc94240efcffaa617184c52c33d212d3/ci-operator/jobs/infra-periodics.yaml#L406-L458)
   |
   [script](https://github.com/openshift/release/blob/master/core-services/ipi-deprovision/aws.sh)
+
 - Every 5 minutes, the leaked clusters in AWS-2 account are deprovisioned using the installer to clean up space in CI
   accounts:
   [job](https://prow.ci.openshift.org/?job=periodic-ipi-deprovision-aws-2) |
   [def](https://github.com/openshift/release/blob/5e67036719ab4509e87f83ed6ab5ae5a0ded551a/ci-operator/jobs/infra-periodics.yaml#L488-L539)
   |
   [script](https://github.com/openshift/release/blob/master/core-services/ipi-deprovision/aws.sh)
+
 - Every 5 minutes, the leaked clusters in GCP account are deprovisioned using the installer to clean up space in CI
   accounts:
   [job](https://prow.ci.openshift.org/?job=periodic-ipi-deprovision-gcp) |
   [def](https://github.com/openshift/release/blob/574f6781869770d757aa14b8040c46553ee15e82/ci-operator/jobs/infra-periodics.yaml#L532-L586)
   |
   [script](https://github.com/openshift/release/blob/master/core-services/ipi-deprovision/gcp.sh)
+
 - Every 5 minutes, the leaked clusters in GCP-2 account are deprovisioned using the installer to clean up space in CI
   accounts:
   [job](https://prow.ci.openshift.org/?job=periodic-ipi-deprovision-gcp-2) |
   [def](https://github.com/openshift/release/blob/7037b74f4690d4f6337bc878f1ecc198a2dca136/ci-operator/jobs/infra-periodics.yaml#L729-L783)
   |
   [script](https://github.com/openshift/release/blob/master/core-services/ipi-deprovision/gcp.sh)
+
 - Every 12 hours, the version of the Prow images running in OpenShift CI is bumped
   by [generic-autobumper](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/generic-autobumper) tool:
   [job](https://prow.ci.openshift.org/?job=periodic-prow-image-autobump) |
   [def](https://github.com/openshift/release/blob/87bb4f2e31c58e82e9901ce398dc8151680c2133/ci-operator/jobs/infra-periodics.yaml#L784-L814)
+
+- Every hour, the [`auto-config-bumper`](https://github.com/openshift/ci-tools/tree/master/cmd/autoconfigbrancher) tool
+  submits a PR to openshift/release that reconciles CI configuration in a series of steps performed by other TP tools:
+  [job](https://prow.ci.openshift.org/?job=periodic-prow-auto-config-brancher) |
+  [def](https://github.com/openshift/release/blob/master/ci-operator/jobs/infra-periodics.yaml#L822-L868) |
+  [steps](https://github.com/openshift/ci-tools/blob/master/cmd/autoconfigbrancher/main.go#L143-L243)
+    - `ci-operator-yaml-creator`
+    - `registry-replacer`
+    - `config-brancher`
+    - `ci-operator-config-mirror`
+    - `determinize-ci-operator`
+    - `ci-operator-prowgen`
+    - `private-prow-config-mirror`
+    - `determinize-prow-config`
+    - `sanitize-prow-jobs`
+    - `template-deprecator`
+    - `cluster-imagesetupdater`
 
 ## GitHub Automation
 
@@ -85,7 +109,7 @@
 
 - Every day in the morning,
   the [sprint-automation tool](https://github.com/openshift/ci-tools/tree/master/cmd/sprint-automation)
-  sets DPTP group role membership based on Pager Duty data, sends JIRA digest to DPTP Intake and posts board summary to
+  sets DPTP group role membership based on Pager Duty data, sends JIRA digests to DPTP Intake and posts board summary to
   Slack:
   [job](https://prow.ci.openshift.org/?job=periodic-sprint-automation) |
   [def](https://github.com/openshift/release/blob/bb090e619eabadf93d3ba56fccf100aa784d3f5a/ci-operator/jobs/infra-periodics.yaml#L46-L89)
