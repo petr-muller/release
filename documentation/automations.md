@@ -60,7 +60,7 @@
   [job](https://prow.ci.openshift.org/?job=periodic-prow-auto-config-brancher) |
   [def](https://github.com/openshift/release/blob/master/ci-operator/jobs/infra-periodics.yaml#L822-L868) |
   [steps](https://github.com/openshift/ci-tools/blob/master/cmd/autoconfigbrancher/main.go#L143-L243)
-    - `ci-operator-yaml-creator`
+    - `ci-operator-yaml-creator` (only updates openshift/release)
     - `registry-replacer`
     - `config-brancher`
     - `ci-operator-config-mirror`
@@ -71,6 +71,14 @@
     - `sanitize-prow-jobs`
     - `template-deprecator`
     - `cluster-imagesetupdater`
+
+- Every 8 hours (but disabled for now),
+  the [ci-operator-yaml-creator](https://github.com/openshift/ci-tools/tree/master/cmd/ci-operator-yaml-creator)
+  tool submits a PR that enforces the presence of `.ci-operator.yaml` file in repositories built by ART. For repos that
+  have this file, it enforces that their ci-operator config uses `build_root.from_repository: true` (but it seems like
+  this mode is enforced in the `auto-config-brancher` job above).
+  [job](https://prow.ci.openshift.org/?job=periodic-ci-operator-yaml-creator) |
+  [def](https://github.com/openshift/release/blob/master/ci-operator/jobs/infra-periodics.yaml#L876-L916)
 
 ## GitHub Automation
 
