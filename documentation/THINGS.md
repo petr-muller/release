@@ -229,7 +229,23 @@ job fails or when config is mistakenly edited on the cluster.
 
 ### branch-ci-openshift-release-master-vsphere-apply
 
+---
+
 ### openshift/ci-tools
+
+openshift/ci-tools is a repository that contains all tools related to [OpenShift CI](#openshift-ci). The CI tools are
+written in Go. The repository vendors [kubernetes/test-infra](#kubernetestest-infra). The repository is owned by
+the [TP](#dptp) team.
+
+**LINKS**
+
+- [openshift/ci-tools](https://github.com/openshift/ci-tools)
+
+**SEE ALSO**
+
+- [ci-operator](#ci-operator)
+
+---
 
 ### Integration Imagestreams
 
