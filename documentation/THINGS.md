@@ -177,7 +177,6 @@ job fails or when config is mistakenly edited on the cluster.
 **LINKS**
 
 - [Results](https://prow.ci.openshift.org/?job=branch-ci-openshift-release-master-config-updates)
-- [openshift/release](Configuration)
 
 **SEE ALSO**
 
@@ -249,6 +248,21 @@ the [TP](#dptp) team.
 
 ### Integration Imagestreams
 
+OpenShift CI integration imagestreams are selected imagestreams on the [app.ci](#appci) cluster where individual OCP
+repositories promote their images. Hence, each imagestream always contains the latest specific OCP version. The
+imagestreams live in the `ocp` namespace and are named by minor OCP versions. The tags in the imagestreams are
+individual component images. The [ci-operator](#ci-operator) is able to build an ephemeral OCP release payload from the
+imagestream content (usually after a component under test builds its images which override the ones originally present
+in the imagestream).
+
+**SEE ALSO**
+
+- [ci-operator](#ci-operator)
+- [app.ci](#appci)
+- [Central CI Registry](#central-ci-image-registry)
+
+---
+
 ### openshift/release
 
 [openshift/release](https://github.com/openshift/release) is the GitHub repository that holds various configuration
@@ -259,7 +273,7 @@ in these major areas:
   OpenShift CI instance of [Prow](#prow)
 - [`ci-operator/{config,jobs,step-registry}`](https://github.com/openshift/release/tree/master/ci-operator): [Prow job configuration](#prow-job-configuration)
   , [ci-operator](#ci-operator)
-  [configuration](#co-operator-configuration) and [shared step registry](#shared-step-registry) for OpenShift components
+  [configuration](#ci-operator-configuration) and [shared step registry](#shared-step-registry) for OpenShift components
 - [`core-services`](https://github.com/openshift/release/tree/master/core-services): Various configuration for important
   services running on [api.ci](#apici)
 - [`services`](https://github.com/openshift/release/tree/master/services): Various configuration for other services
@@ -278,6 +292,10 @@ either the [applyconfig](#applyconfig) tool or the [config-updater](#config-upda
 **SEE ALSO**
 
 - [ci/prow/correctly-sharded-config](#ciprowcorrectly-sharded-config)
+
+---
+
+### Central CI Image Registry
 
 ---
 
