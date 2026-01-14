@@ -2799,7 +2799,7 @@ tests:
       GO_VERSION: 1.20.7
       JQ_VERSION: "1.6"
       LOKI_ENABLED: "false"
-      OCP_VERSION: "4.22"
+      OCP_VERSION: "4.23"
       RESOURCE_GROUP: multi-arch-cicd-resource-group
       SIZE_VARIANT: large
       TERRAFORM_VERSION: 1.5.5

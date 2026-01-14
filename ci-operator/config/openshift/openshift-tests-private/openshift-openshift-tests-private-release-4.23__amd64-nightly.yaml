@@ -133,7 +133,7 @@ tests:
     allow_skip_on_success: true
     cluster_profile: gcp-qe
     env:
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - ref: olmv1-performance
     - ref: openshift-qe-orion-olmv1
@@ -1422,7 +1422,7 @@ tests:
     env:
       CHANNEL_GROUP: nightly
       E2E_RUN_TAGS: '@osd_ccs'
-      OPENSHIFT_VERSION: "4.22"
+      OPENSHIFT_VERSION: "4.23"
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;OSD_CCS&
       TEST_FILTERS_SUPPLEMENTARY: ~ChkUpgrade&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;OSD_CCS&
     test:
@@ -1438,7 +1438,7 @@ tests:
       NAME_PREFIX: ocpe2e
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;ROSA&
       TEST_PROFILE: ocpe2e-rosa-shared-vpc
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - chain: openshift-e2e-test-qe
     workflow: rosa-lifecycle-advanced
@@ -1452,7 +1452,7 @@ tests:
       NAME_PREFIX: ocpe2e
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;ROSA&
       TEST_PROFILE: ocpe2e-rosa-advanced
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - chain: openshift-e2e-test-qe
     workflow: rosa-lifecycle-advanced
@@ -1466,7 +1466,7 @@ tests:
       NAME_PREFIX: ocpe2e
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;ROSA&
       TEST_PROFILE: ocpe2e-rosa-non-sts-advanced
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - chain: openshift-e2e-test-qe
     workflow: rosa-lifecycle-advanced
@@ -1481,7 +1481,7 @@ tests:
       REGION: us-east-2
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;ROSA&
       TEST_PROFILE: ocpe2e-rosa-private-link
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - chain: openshift-e2e-test-qe
     workflow: rosa-lifecycle-private-advanced
@@ -1495,7 +1495,7 @@ tests:
       NAME_PREFIX: ocpe2e
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;~NonHyperShiftHOST&;ROSA&
       TEST_PROFILE: ocpe2e-rosa-hcp-shared-vpc-advanced
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - chain: multiarch-tuning-operator
     - chain: openshift-e2e-test-hypershift-qe
@@ -1510,7 +1510,7 @@ tests:
       NAME_PREFIX: ocpe2e
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;~NonHyperShiftHOST&;ROSA&
       TEST_PROFILE: ocpe2e-rosa-hcp-advanced
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - chain: openshift-e2e-test-hypershift-qe
     workflow: rosa-lifecycle-advanced
@@ -1523,7 +1523,7 @@ tests:
       NAME_PREFIX: ocpe2e
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;~NonHyperShiftHOST&;ROSA&
       TEST_PROFILE: ocpe2e-rosa-hcp-external-auth
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - ref: openshift-extended-test
     - ref: openshift-e2e-test-qe-report
@@ -1539,7 +1539,7 @@ tests:
       REGION: us-west-2
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;~NonHyperShiftHOST&;ROSA&
       TEST_PROFILE: ocpe2e-rosa-hcp-pl
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - chain: openshift-e2e-test-hypershift-qe
     workflow: rosa-lifecycle-private-advanced
@@ -1554,7 +1554,7 @@ tests:
       REGION: us-west-2
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;~NonHyperShiftHOST&;ROSA&
       TEST_PROFILE: ocpe2e-rosa-hcp-zero-egress
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - chain: openshift-e2e-test-hypershift-qe
     workflow: rosa-lifecycle-private-advanced
@@ -1569,7 +1569,7 @@ tests:
       NAME_PREFIX: ocpe2e
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;ROSA&
       TEST_PROFILE: ocpe2e-rosa-advanced
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - chain: openshift-e2e-test-qe
     workflow: rosa-lifecycle-advanced
@@ -1581,7 +1581,7 @@ tests:
       CHANNEL_GROUP: nightly
       E2E_RUN_TAGS: '@rosa'
       OCM_LOGIN_ENV: integration
-      OPENSHIFT_VERSION: "4.22"
+      OPENSHIFT_VERSION: "4.23"
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~ConnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;~NonHyperShiftHOST&;ROSA&
     test:
     - chain: openshift-e2e-test-hypershift-qe
@@ -1593,7 +1593,7 @@ tests:
     env:
       CHANNEL_GROUP: nightly
       E2E_RUN_TAGS: '@rosa'
-      OPENSHIFT_VERSION: "4.22"
+      OPENSHIFT_VERSION: "4.23"
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~ConnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;~NonHyperShiftHOST&;ROSA&
     test:
     - chain: openshift-e2e-test-hypershift-qe
@@ -1624,7 +1624,7 @@ tests:
       OCM_LOGIN_ENV: integration
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;~NonHyperShiftHOST&;ROSA&
       TEST_PROFILE: ocpe2e-rosa-hcp-shared-vpc-advanced
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - chain: multiarch-tuning-operator
     - chain: openshift-e2e-test-hypershift-qe
@@ -1640,7 +1640,7 @@ tests:
       OCM_LOGIN_ENV: integration
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;~NonHyperShiftHOST&;ROSA&
       TEST_PROFILE: ocpe2e-rosa-hcp-advanced
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - chain: openshift-e2e-test-hypershift-qe
     workflow: rosa-lifecycle-advanced
@@ -1654,7 +1654,7 @@ tests:
       OCM_LOGIN_ENV: integration
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;~NonHyperShiftHOST&;ROSA&
       TEST_PROFILE: ocpe2e-rosa-hcp-external-auth
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - ref: openshift-extended-test
     - ref: openshift-e2e-test-qe-report
@@ -1671,7 +1671,7 @@ tests:
       REGION: us-west-2
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;~NonHyperShiftHOST&;ROSA&
       TEST_PROFILE: ocpe2e-rosa-hcp-pl
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - chain: openshift-e2e-test-hypershift-qe
     workflow: rosa-lifecycle-private-advanced
@@ -1687,7 +1687,7 @@ tests:
       REGION: us-west-2
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;~NonHyperShiftHOST&;ROSA&
       TEST_PROFILE: ocpe2e-rosa-hcp-zero-egress
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - chain: openshift-e2e-test-hypershift-qe
     workflow: rosa-lifecycle-private-advanced
@@ -3037,7 +3037,7 @@ tests:
     env:
       CHANNEL_GROUP: nightly
       E2E_RUN_TAGS: '@osd_ccs'
-      OPENSHIFT_VERSION: "4.22"
+      OPENSHIFT_VERSION: "4.23"
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;OSD_CCS&
       TEST_FILTERS_SUPPLEMENTARY: ~ChkUpgrade&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;OSD_CCS&
     test:
@@ -3050,7 +3050,7 @@ tests:
     env:
       CHANNEL_GROUP: nightly
       E2E_RUN_TAGS: '@osd_ccs'
-      OPENSHIFT_VERSION: "4.22"
+      OPENSHIFT_VERSION: "4.23"
       SUBSCRIPTION_TYPE: marketplace-gcp
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;OSD_CCS&
       TEST_FILTERS_SUPPLEMENTARY: ~ChkUpgrade&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;OSD_CCS&
@@ -3064,7 +3064,7 @@ tests:
     env:
       CHANNEL_GROUP: nightly
       E2E_RUN_TAGS: '@osd_ccs'
-      OPENSHIFT_VERSION: "4.22"
+      OPENSHIFT_VERSION: "4.23"
       SUBSCRIPTION_TYPE: marketplace-gcp
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;OSD_CCS&
       TEST_FILTERS_SUPPLEMENTARY: ~ChkUpgrade&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;OSD_CCS&
@@ -3078,7 +3078,7 @@ tests:
     env:
       CHANNEL_GROUP: nightly
       E2E_RUN_TAGS: '@osd_ccs'
-      OPENSHIFT_VERSION: "4.22"
+      OPENSHIFT_VERSION: "4.23"
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;OSD_CCS&
       TEST_FILTERS_SUPPLEMENTARY: ~ChkUpgrade&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;OSD_CCS&
     test:
@@ -3096,7 +3096,7 @@ tests:
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;OSD_CCS&
       TEST_FILTERS_SUPPLEMENTARY: ~ChkUpgrade&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;OSD_CCS&
       TEST_PROFILE: osd-gcp-wif-sv
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - chain: openshift-e2e-test-qe
     workflow: ocm-api-lifecycle
@@ -3112,7 +3112,7 @@ tests:
       TEST_FILTERS: ~ChkUpgrade&;~NonPreRelease&;~Serial&;~Disruptive&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;OSD_CCS&
       TEST_FILTERS_SUPPLEMENTARY: ~ChkUpgrade&;~DisconnectedOnly&;~HyperShiftMGMT&;~MicroShiftOnly&;OSD_CCS&
       TEST_PROFILE: osd-ccs-gcp-marketplace
-      VERSION: "4.22"
+      VERSION: "4.23"
     test:
     - chain: openshift-e2e-test-qe
     workflow: ocm-api-lifecycle

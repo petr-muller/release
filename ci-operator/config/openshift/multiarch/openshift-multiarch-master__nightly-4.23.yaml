@@ -151,7 +151,7 @@ tests:
       BASE_DOMAIN: multi-arch-cicd.cis.ibm.net
       IBMCLOUD_CIS_CRN: 'crn:v1:bluemix:public:internet-svcs:global:a/3c24cb272ca44aa1ac9f6e9490ac5ecd:8a93b3a8-b109-4c74-952c-7578dca2c4ee::'
       JQ_VERSION: "1.6"
-      OCP_VERSION: "4.21"
+      OCP_VERSION: "4.22"
       RESOURCE_GROUP: multi-arch-cicd-resource-group
       TERRAFORM_VERSION: 1.5.5
       TEST_SKIPS: deploymentconfigs\| should expose cluster services outside the cluster\|
@@ -388,7 +388,7 @@ tests:
       GO_VERSION: 1.20.7
       JQ_VERSION: "1.6"
       LOKI_ENABLED: "false"
-      OCP_VERSION: "4.21"
+      OCP_VERSION: "4.22"
       RESOURCE_GROUP: multi-arch-cicd-resource-group
       SIZE_VARIANT: compact
       TERRAFORM_VERSION: 1.5.5
@@ -438,7 +438,7 @@ tests:
       OPENSHIFT_INSTALL_TARGET: release:s390x-latest
     env:
       ARCH: s390x
-      BRANCH: "4.21"
+      BRANCH: "4.22"
       ETCD_DISK_SPEED: slow
       NODE_TUNING: "true"
       TEST_TYPE: conformance-parallel
@@ -451,7 +451,7 @@ tests:
     cluster_profile: libvirt-s390x-2
     env:
       ARCH: s390x
-      BRANCH: "4.21"
+      BRANCH: "4.22"
       ETCD_DISK_SPEED: slow
       NODE_TUNING: "true"
       TEST_TYPE: conformance-parallel
@@ -464,7 +464,7 @@ tests:
     cluster_profile: libvirt-s390x-2
     env:
       ARCH: s390x
-      BRANCH: "4.21"
+      BRANCH: "4.22"
       ETCD_DISK_SPEED: slow
       INSTALLER_TYPE: agent
       NODE_TUNING: "true"
@@ -479,7 +479,7 @@ tests:
     cluster_profile: libvirt-s390x-amd64
     env:
       ARCH: s390x
-      BRANCH: "4.21"
+      BRANCH: "4.22"
       TEST_TYPE: conformance-parallel
       USE_RAMFS: "true"
     workflow: openshift-e2e-libvirt-upi-heterogeneous
@@ -491,7 +491,7 @@ tests:
     cluster_profile: libvirt-s390x-2
     env:
       ARCH: s390x
-      BRANCH: "4.21"
+      BRANCH: "4.22"
       ETCD_DISK_SPEED: slow
       TEST_TYPE: image-ecosystem
     workflow: openshift-e2e-libvirt-upi
@@ -503,7 +503,7 @@ tests:
     cluster_profile: libvirt-s390x-2
     env:
       ARCH: s390x
-      BRANCH: "4.21"
+      BRANCH: "4.22"
       ETCD_DISK_SPEED: slow
       TEST_TYPE: jenkins-e2e-rhel-only
     workflow: openshift-e2e-libvirt-upi
@@ -515,7 +515,7 @@ tests:
     cluster_profile: libvirt-s390x-2
     env:
       ARCH: s390x
-      BRANCH: "4.21"
+      BRANCH: "4.22"
       ETCD_DISK_SPEED: slow
       TEST_TYPE: conformance-serial
     workflow: openshift-e2e-libvirt-upi
@@ -527,7 +527,7 @@ tests:
     cluster_profile: libvirt-s390x-2
     env:
       ARCH: s390x
-      BRANCH: "4.21"
+      BRANCH: "4.22"
       ETCD_DISK_SPEED: slow
       FIPS_ENABLED: "true"
       NODE_TUNING: "true"
@@ -541,7 +541,7 @@ tests:
     cluster_profile: libvirt-s390x-2
     env:
       ARCH: s390x
-      BRANCH: "4.21"
+      BRANCH: "4.22"
       COMPUTE_COUNT: "0"
       DOMAIN_MEMORY: "32768"
       TEST_TYPE: conformance-parallel
@@ -556,7 +556,7 @@ tests:
       OPENSHIFT_INSTALL_TARGET: release:ppc64le-latest
     env:
       ARCH: ppc64le
-      BRANCH: "4.21"
+      BRANCH: "4.22"
       DOMAIN_MEMORY: "34816"
       ETCD_DISK_SPEED: slow
       TEST_TYPE: conformance-parallel
@@ -569,7 +569,7 @@ tests:
     cluster_profile: libvirt-ppc64le-s2s
     env:
       ARCH: ppc64le
-      BRANCH: "4.21"
+      BRANCH: "4.22"
       DOMAIN_MEMORY: "34816"
       ETCD_DISK_SPEED: slow
       TEST_TYPE: conformance-parallel
@@ -582,7 +582,7 @@ tests:
     cluster_profile: libvirt-ppc64le-s2s
     env:
       ARCH: ppc64le
-      BRANCH: "4.21"
+      BRANCH: "4.22"
       DOMAIN_MEMORY: "34816"
       ETCD_DISK_SPEED: slow
       INSTALLER_TYPE: agent
@@ -597,7 +597,7 @@ tests:
     cluster_profile: libvirt-ppc64le-s2s
     env:
       ARCH: ppc64le
-      BRANCH: "4.21"
+      BRANCH: "4.22"
       ETCD_DISK_SPEED: slow
       TEST_TYPE: image-ecosystem
     workflow: openshift-e2e-libvirt-upi
@@ -608,7 +608,7 @@ tests:
     cluster_profile: libvirt-ppc64le-s2s
     env:
       ARCH: ppc64le
-      BRANCH: "4.21"
+      BRANCH: "4.22"
       ETCD_DISK_SPEED: slow
       TEST_TYPE: conformance-serial
     workflow: openshift-e2e-libvirt-upi
@@ -619,7 +619,7 @@ tests:
     cluster_profile: libvirt-ppc64le-s2s
     env:
       ARCH: ppc64le
-      BRANCH: "4.21"
+      BRANCH: "4.22"
       ETCD_DISK_SPEED: slow
       FIPS_ENABLED: "true"
       TEST_TYPE: conformance-parallel
@@ -634,7 +634,7 @@ tests:
     cluster_profile: powervc-1
     env:
       ARCH: ppc64le
-      BRANCH: "4.21"
+      BRANCH: "4.22"
       INSTALLER: powervc
       TEST_TYPE: conformance-parallel
     workflow: openshift-e2e-powervc-ipi
@@ -646,7 +646,7 @@ tests:
     cluster_profile: powervs-8
     env:
       ARCH: ppc64le
-      BRANCH: "4.21"
+      BRANCH: "4.22"
       CLUSTER_NAME_MODIFIER: capi-421
       INSTALLER: powervs
       TEST_TYPE: conformance-parallel
