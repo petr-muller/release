@@ -10,7 +10,7 @@ base_images:
   cluster-api-actuator-pkg-test:
     name: cluster-api-actuator-pkg-test
     namespace: ci
-    tag: "4.20"
+    tag: "4.21"
   dev-scripts:
     name: test
     namespace: ocp-kni
@@ -34,11 +34,11 @@ base_images:
   tests-private:
     name: tests-private
     namespace: ci
-    tag: "4.22"
+    tag: "4.23"
   tests-private-ui:
     name: tests-private-ui
     namespace: ci
-    tag: "4.22"
+    tag: "4.23"
   tools:
     name: "4.23"
     namespace: ocp
