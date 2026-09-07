@@ -18,7 +18,7 @@ spec:
   hibernationConfig:
     resumeTimeout: 20m0s
   imageSetRef:
-    name: ocp-release-nightly-sha256-6116fd6bdb9628fcc620c36be38f2a7863e2ba0d0cc6d9f879b4695f52307545-for-4.23.0-0-to-4.24.0-0
+    name: ocp-release-nightly-sha256-6fbe0bf39b569890c2c9416ba5bc296fe5fa70c2dc7d8a03c4d49575408d7340-for-4.23.0-0-to-4.24.0-0
   installAttemptsLimit: 1
   installConfigSecretTemplateRef:
     name: install-config-aws-us-east-1
